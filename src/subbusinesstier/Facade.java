@@ -146,6 +146,7 @@ public class Facade {
      * @param titleRecords
      */
     private void setTitleRecords(List<TitleRecord> titleRecords) {
+        this.titleRecords = (ArrayList) titleRecords;
     }
 
     public List<Client> getClients() {
@@ -156,6 +157,7 @@ public class Facade {
      * @param clients
      */
     public void setClients(List<Client> clients) {
+        this.clients = (ArrayList) clients;
     }
 
     /**
@@ -175,6 +177,7 @@ public class Facade {
     /**
      * @param data1
      * @param data2
+     * @return 
      */
     public ArrayList<String> addRecord(String[] data1, String[] data2) {
 
@@ -191,11 +194,10 @@ public class Facade {
 
     /**
      * @param titleRecord
+     * @return 
      */
     public TitleRecord searchTitleRecord(TitleRecord titleRecord) {
-
         int index;
-
         if ((index = titleRecords.indexOf(titleRecord)) != -1) {
             return titleRecords.get(index);
         }
@@ -204,10 +206,10 @@ public class Facade {
     
     
 
-        public TitleRecord searchTitleRecod(String id) {
+    public TitleRecord searchTitleRecod(String id) {
         for(TitleRecord titleRecord : titleRecords){
-        if (titleRecord.getId().equals(id))
-            return titleRecord;
+            if (titleRecord.getId().equals(id))
+                return titleRecord;
         }
         return null;
     }
@@ -233,7 +235,6 @@ public class Facade {
      * @param data
      */
     public String addClient(String data[]) {
-
         Factory factory = new Factory();
         Client client = factory.createClient(data);
         if (searchClient(client) == null) {
@@ -248,23 +249,19 @@ public class Facade {
      */
     public Client searchClient(Client client) {
         int idx;
-
         idx = clients.indexOf(client);
-
         if (idx != -1) {
 
             return clients.get(idx);
         }
-
         return null;
     }
 
         public Client searchClient(int id) {
-        
         for(Client client : clients){
-        if (client.getNumber() == id)
-            return client;
-        }
+            if (client.getNumber() == id)
+                return client;
+            }
         return null;
     }
 

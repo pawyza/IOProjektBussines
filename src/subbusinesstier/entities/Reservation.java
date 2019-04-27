@@ -62,6 +62,7 @@ public class Reservation {
         Factory factory = new Factory();
         Rental newRental;
         newRental = factory.creatRental(reservation, returnDate);
+        rental = newRental;
         return newRental.toString();
         }
         
