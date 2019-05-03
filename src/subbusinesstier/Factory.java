@@ -85,12 +85,11 @@ public class Factory {
      * @param number
      * @param date
      */
-    public Reservation createReservation(int number, LocalDate date) {
+    public Reservation createReservation(int number) {
         
         Reservation reservation = null;
         reservation = new Reservation();
         reservation.setNumber(number);
-        reservation.setDate(date);
         return reservation;
     }
 
@@ -98,11 +97,11 @@ public class Factory {
      * @param reservation
      * @param returnDate
      */
-    public Rental creatRental(Reservation reservation, LocalDate returnDate){
+    public Rental creatRental(Reservation reservation, Float cost){
         Rental rental = null;
         rental = new Rental();
         rental.setReservation(reservation);
-        rental.setReturnDate(returnDate);
+        rental.setCost(cost);
         return rental;
     }
 }

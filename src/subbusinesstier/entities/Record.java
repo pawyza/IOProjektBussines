@@ -78,11 +78,11 @@ public class Record {
      * @param date
      * @return 
      */
-    public boolean isFree(LocalDate date) {
+    public boolean isFree(LocalDate dateStart,LocalDate dateEnd) {
         Reservation reservation;
         for (int i = 0; i < reservations.size(); i++) {
             reservation = reservations.get(i);
-            while (!reservation.isFree(date)) {
+            if(!reservation.isFree(dateStart,dateEnd)){
                 return false;
             }
         }

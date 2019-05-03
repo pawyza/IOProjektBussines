@@ -48,11 +48,7 @@ public class TitleRecord {
     }
 
     public Record getRecord(LocalDate date) {
-        for(Record record : records){
-            record.isFree(date);
-            return record;
-        }
-        return null;
+        return this.record;
     }
 
     public void setRecord(Record record) {
@@ -140,16 +136,41 @@ public class TitleRecord {
     /**
      * @param date
      */
-    public boolean searchFreeRecord(LocalDate date) {
+    public boolean searchFreeRecord(LocalDate dateStart, LocalDate dateEnd) {
         Record record = null;
         for (int i = 0; i < records.size(); i++) {
             record = records.get(i);
-            if (record.isFree(date))
+            if (record.isFree(dateStart,dateEnd))
                 return true;
         }
         return false;
     }
 
+    public Record getFreeRecord(LocalDate dateStart, LocalDate dateEnd) {
+        for(Record record : records){
+            record.isFree(dateStart,dateEnd);
+            return record;
+        }
+        return null;
+    }
+    
+    public String printRecords() {
+        String result = "";
+        for(Record record : getRecords()){
+            result += record.toString();
+        }
+        return result;
+    }
+    
+        public ArrayList<String> getRecordsOfTitleList() {
+        ArrayList<String> recordsOfTitleList = new ArrayList<>();
+        Iterator<Record> help = getRecords().iterator();
+        while (help.hasNext()) {
+            recordsOfTitleList.add(help.next().toString());
+        }
+        return recordsOfTitleList;
+        }
+    
     @Override
     public String toString() {
         String help = "\nTitle: " + getTitle();

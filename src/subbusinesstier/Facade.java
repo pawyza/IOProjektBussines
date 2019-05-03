@@ -1,7 +1,6 @@
 package subbusinesstier;
 
 import subbusinesstier.entities.Client;
-import subbusinesstier.entities.Record;
 import subbusinesstier.entities.TitleRecord;
 
 import java.time.LocalDate;
@@ -9,8 +8,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import subbusinesstier.entities.Reservation;
-
 /**
  * PU:
  * Dodaj_tytu�_nagrania, Wyszukaj_tytu�_nagrania, Operacje_na_nagraniach, Dodawanie_nagrania, Modyfikacja_nagrania, Wyszukaj_nagrania, Usuwanie_nagrania, Publikuj, Wy�lij_komunikat, Wyszukaj_klienta, Logowanie, Rejestracja_klienta, Rezerwacja_nagrania,Zwrot_nagrania,Wyszukaj_rezerwacje, Usuwanie_rezerwacji, Op�acenie_rezerwacji,Odebranie_nagrania
@@ -103,37 +100,37 @@ public class Facade {
         ap.addClient(client4);
         ap.addClient(client5);
         ap.addClient(client6);
-         lan = ap.getClients().toString();
-         System.out.println(lan);
+        lan = ap.getClients().toString();
+        System.out.println(lan);
         System.out.println("\nTest dodawania rezerwacji");
             LocalDate date1 = LocalDate.of(2019, Month.MAY, 10);
-            
-            LocalDate date2 = LocalDate.of(2019, Month.JULY, 4);
+            LocalDate date2 = LocalDate.of(2019, Month.MAY, 18);
+            LocalDate date3 = LocalDate.of(2019, Month.JULY, 4);
+            LocalDate date4 = LocalDate.of(2019, Month.JULY, 21);
         
-        ap.addReservation(titleRecord1, client1, date1);
-        ap.addReservation(titleRecord1, client2, date1);
-        ap.addReservation(titleRecord1, client5, date1);
-        ap.addReservation(titleRecord1, client4, date1);
-        ap.addReservation(titleRecord2, client2, date2);
-        ap.addReservation(titleRecord2, client3, date2);
-        ap.addReservation(titleRecord3, client3, date2);
+        
+        System.out.println(ap.addReservation(titleRecord1, client1, date1,date2));
+        System.out.println(ap.addReservation(titleRecord1, client2, date1,date2));
+        System.out.println(ap.addReservation(titleRecord1, client5, date1,date2));
+        System.out.println(ap.addReservation(titleRecord1, client4, date1,date2));
+        System.out.println(ap.addReservation(titleRecord2, client2, date3,date4));
+        System.out.println(ap.addReservation(titleRecord2, client3, date3,date4));
+        System.out.println(ap.addReservation(titleRecord3, client3, date3,date4));
 
         lan = ap.getClients().toString();
         System.out.println(lan);
         
         System.out.println("\nTest dodawania rental");
-         LocalDate date3 = LocalDate.of(2019, Month.MAY,20);
-         LocalDate date4 = LocalDate.of(2019, Month.JULY, 24);
-         String pom2;
-        pom2 = ap.addRental(client1, 1, date1, date4);
+        String pom2;
+        pom2 = ap.addRental(client1, 1, 10);
         System.out.println(pom2);
-        pom2 = ap.addRental(client2, 2, date1, date3);
+        pom2 = ap.addRental(client2, 2, 20);
          System.out.println(pom2);
-        pom2 = ap.addRental(client3, 3, date2, date3);
+        pom2 = ap.addRental(client3, 3, 30);
          System.out.println(pom2);
-        pom2 = ap.addRental(client6, 4, date2, date4);
+        pom2 = ap.addRental(client6, 4, 15);
          System.out.println(pom2);
-        pom2 = ap.addRental(client4, 5, date2, date3);
+        pom2 = ap.addRental(client4, 5, 16.5f);
          System.out.println(pom2);
     }
 
@@ -271,20 +268,20 @@ public class Facade {
      * @param data2
      * @param date
      */
-    public String addReservation(String[] data1, String[] data2, LocalDate date) {
+    public String addReservation(String[] data1, String[] data2, LocalDate dateStart, LocalDate dateEnd) {
         String result;
         Factory factory = new Factory();
         TitleRecord helpTitleRecord = factory.createTitleRecord(data1),titleRecord;
         
         titleRecord = this.searchTitleRecord(helpTitleRecord);
         if(titleRecord != null)
-            if(titleRecord.searchFreeRecord(date)){
+            if(titleRecord.searchFreeRecord(dateStart, dateEnd)){
                 Client helpClient = factory.createClient(data2),client;
                 
                 client = this.searchClient(helpClient);
                 if(client != null){
-                    if(titleRecord.getRecord(date)!= null){
-                    client.addReservation(titleRecord.getRecord(date), date);
+                    if(titleRecord.getFreeRecord(dateStart,dateEnd)!= null){
+                    client.addReservation(titleRecord.getFreeRecord(dateStart,dateEnd), dateStart,dateEnd);
                     result = "reserved";
                     } else result = "no free record";
                 } else result = "no such client";
@@ -303,12 +300,7 @@ public class Facade {
         int index;
 
         if ((index = titleRecords.indexOf(titleRecord)) != -1) {
-            List<Record> records = titleRecords.get(index).getRecords();
-            Iterator<Record> help = records.iterator();
-            while (help.hasNext()) {
-                recordsOfTitleList.add(help.next().toString());
-            }
-            return recordsOfTitleList;
+            return  titleRecords.get(index).getRecordsOfTitleList();
         }
         return null;
     }
@@ -317,17 +309,15 @@ public class Facade {
         throw new UnsupportedOperationException();
     }
 
-    public String PrintRecords() {
+    public String printRecords() {
         String result = "";
         for(TitleRecord titleRecord : titleRecords){
-            for(Record record : titleRecord.getRecords()){
-                result += record.toString();
-            }
+            return titleRecord.printRecords();
         }
         return result;
     }
 
-    public String PrintTitleRecords() {
+    public String printTitleRecords() {
         String result = "";
         for(TitleRecord titleRecord : titleRecords){
             result += titleRecord.toString();
@@ -340,7 +330,7 @@ public class Facade {
      * @param data2
      * @param returnDate
      */
-    public String addRental(String[] data1,int number , LocalDate date , LocalDate returnDate) {
+    public String addRental(String[] data1,int number , float dayCost) {
         String result;
         Factory factory = new Factory();
         
@@ -348,13 +338,7 @@ public class Facade {
         
         client = this.searchClient(helpClient);
         if(client != null){
-            Reservation helpReservation = factory.createReservation(number, date),reservation;
-            
-            reservation = client.searchReservation(helpReservation);
-            if(reservation != null){
-                reservation.addRental(reservation, returnDate);
-                result = "rented";
-            } else result = "no such reservation";
+            result = client.addRental(number, dayCost);
         } else result = "no such client";
         return result;
     }

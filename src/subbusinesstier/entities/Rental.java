@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 public class Rental {
  
 	private Reservation reservation;
-	private LocalDate returnDate;
+        private float cost;
 
         public Reservation getReservation() {
             return reservation;
@@ -29,21 +29,16 @@ public class Rental {
             this.reservation = reservation;
         }
 
-        public LocalDate getReturnDate() {
-            return returnDate;
+        public float getCost() {
+            return cost;
         }
 
-	/**
-	 * 
-	 * @param returnDate
-	 */
-        public void setReturnDate(LocalDate returnDate) {
-            this.returnDate = returnDate;
+        public void setCost(float cost) {
+            this.cost = cost;
         }
-
         @Override
 	public int hashCode() {
-                return Integer.valueOf(reservation.getNumber() + returnDate.format(DateTimeFormatter.ofPattern("yyMMdd")));
+                return Integer.valueOf(getReservation().getNumber() + String.valueOf(getCost()));
 	}
 
 	/**
@@ -54,7 +49,7 @@ public class Rental {
 	public boolean equals(Object o) {
             boolean result = false;
             if (getReservation().getNumber() == ((Rental) o).getReservation().getNumber())
-                if (getReturnDate().equals(((Rental) o).getReturnDate())) {
+                if (getCost() == (((Rental) o).getCost())) {
                 result = true;
             }
             return result;
@@ -62,6 +57,6 @@ public class Rental {
 
         @Override
 	public String toString() {
-		return reservation.toString() + " Return date: " + returnDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		return reservation.toString() + " Cost: " + String.valueOf(getCost());
 	}  
 }

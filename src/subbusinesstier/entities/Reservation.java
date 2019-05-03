@@ -2,6 +2,7 @@ package subbusinesstier.entities;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import subbusinesstier.Factory;
 
@@ -15,7 +16,8 @@ public class Reservation {
 	private Record record;
 	private Client client;
 	private int number;
-	private LocalDate date;
+	private LocalDate dateStart;
+        private LocalDate dateEnd;
         private Rental rental;
 
 	public Record getRecord() {
@@ -42,13 +44,21 @@ public class Reservation {
 		this.number = number;
 	}
 
-	public LocalDate getDate() {
-		return this.date;
-	}
+        public LocalDate getDateStart() {
+            return dateStart;
+        }
 
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
+        public void setDateStart(LocalDate dateStart) {
+            this.dateStart = dateStart;
+        }
+
+        public LocalDate getDateEnd() {
+            return dateEnd;
+        }   
+
+        public void setDateEnd(LocalDate dateEnd) {
+            this.dateEnd = dateEnd;
+        }
 
         public Rental getRental() {
             return rental;
@@ -58,10 +68,11 @@ public class Reservation {
             this.rental = rental;
         }
         
-        public String addRental(Reservation reservation, LocalDate returnDate){
+        public String addRental(Reservation reservation, float dayCost){
         Factory factory = new Factory();
         Rental newRental;
-        newRental = factory.creatRental(reservation, returnDate);
+        float cost = (float) dateStart.until(dateEnd, ChronoUnit.DAYS) * dayCost;
+        newRental = factory.creatRental(reservation ,cost);
         rental = newRental;
         return newRental.toString();
         }
@@ -88,18 +99,17 @@ public class Reservation {
 	 * 
 	 * @param date
 	 */
-	public boolean isFree(LocalDate date) {
-            if (rental != null){
-                if(rental.getReturnDate().isBefore(date)){
-                    return true;
-                }
-            } 
-            return false;
+	public boolean isFree(LocalDate dateStart, LocalDate dateEnd) {
+            if (this.dateStart.isAfter(dateEnd) || this.dateEnd.isBefore(dateStart)) {
+                if (rental == null) {
+                return true; }
+            }
+            return false; 
 	}
 
         @Override
 	public String toString() {
-		return " Number: " + getNumber()  + " Date: " + date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))  + " Number: " + getNumber();
+		return " Number: " + getNumber()  + " Start date: " + getDateStart().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))  + " End date: " + getDateEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))  + " Number: " + getNumber();
 	}
 
 }

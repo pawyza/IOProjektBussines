@@ -67,20 +67,31 @@ public class Client {
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
     }
-
+    
     /**
      * @param record
      * @param date
      */
-    public void addReservation(Record record, LocalDate date) {
+    public void addReservation(Record record, LocalDate dateStart, LocalDate dateEnd) {
         Factory factory = new Factory();
-        Reservation reservation = factory.createReservation(Reservation.nextNumber++, date);
+        Reservation reservation = factory.createReservation(Reservation.nextNumber++);
         reservation.setClient(this);
+        reservation.setDateStart(dateStart);
+        reservation.setDateEnd(dateEnd);
         record.addReservation(reservation);
         reservations.add(reservation);
-
     }
 
+    public String addRental(int number, float dayCost) {
+        Factory factory = new Factory();
+        Reservation helpReservation = factory.createReservation(number), reservation;
+        reservation = searchReservation(helpReservation);
+        if (reservation != null) {
+            reservation.addRental(reservation, dayCost);
+            return "rented";
+        } else return "no such reservation";
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
