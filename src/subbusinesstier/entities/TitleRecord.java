@@ -132,6 +132,11 @@ public class TitleRecord {
         }
         return null;
     }
+        
+    public void deleteRecord(int number){
+        Record record = searchRecord(number);
+        records.remove(record);
+    }
 
     /**
      * @param date

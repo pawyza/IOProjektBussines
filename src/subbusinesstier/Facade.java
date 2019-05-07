@@ -8,6 +8,8 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import subbusinesstier.entities.Record;
+import subbusinesstier.entities.Reservation;
 /**
  * PU:
  * Dodaj_tytu�_nagrania, Wyszukaj_tytu�_nagrania, Operacje_na_nagraniach, Dodawanie_nagrania, Modyfikacja_nagrania, Wyszukaj_nagrania, Usuwanie_nagrania, Publikuj, Wy�lij_komunikat, Wyszukaj_klienta, Logowanie, Rejestracja_klienta, Rezerwacja_nagrania,Zwrot_nagrania,Wyszukaj_rezerwacje, Usuwanie_rezerwacji, Op�acenie_rezerwacji,Odebranie_nagrania
@@ -81,7 +83,7 @@ public class Facade {
         if (pom != null) {
             System.out.print(pom);
         }
-
+        
         System.out.println("\nTest szukania nagrań o tytule:");
         System.out.println(ap.searchRecordsOfTitle(titleRecord1));
 
@@ -92,7 +94,7 @@ public class Facade {
         String client3[] = {"2557835671233310", "Filip", "3", "Spd"};
         String client4[] = {"2557800027636456", "Jakub", "4", "BiomM"};
         String client5[] = {"2557801926554456", "Dawid", "5", "Redagowanie"};
-        String client6[] = {"2557835671236456", "Ania", "6", "Mikro"};
+        String client6[] = {"2557835671236456", "Ania2", "6", "Mikro"};
 
         ap.addClient(client1);
         ap.addClient(client2);
@@ -109,13 +111,13 @@ public class Facade {
             LocalDate date4 = LocalDate.of(2019, Month.JULY, 21);
         
         
-        System.out.println(ap.addReservation(titleRecord1, client1, date1,date2));
-        System.out.println(ap.addReservation(titleRecord1, client2, date1,date2));
-        System.out.println(ap.addReservation(titleRecord1, client5, date1,date2));
-        System.out.println(ap.addReservation(titleRecord1, client4, date1,date2));
-        System.out.println(ap.addReservation(titleRecord2, client2, date3,date4));
-        System.out.println(ap.addReservation(titleRecord2, client3, date3,date4));
-        System.out.println(ap.addReservation(titleRecord3, client3, date3,date4));
+        System.out.println(ap.addReservation(titleRecord1, client1, 1,date1,date2));
+        System.out.println(ap.addReservation(titleRecord1, client2, 2,date1,date2));
+        System.out.println(ap.addReservation(titleRecord1, client5,3, date1,date2));
+        System.out.println(ap.addReservation(titleRecord1, client4,4, date1,date2));
+        System.out.println(ap.addReservation(titleRecord2, client2,5, date3,date4));
+        System.out.println(ap.addReservation(titleRecord2, client3,6, date3,date4));
+        System.out.println(ap.addReservation(titleRecord3, client3,7, date3,date4));
 
         lan = ap.getClients().toString();
         System.out.println(lan);
@@ -132,6 +134,32 @@ public class Facade {
          System.out.println(pom2);
         pom2 = ap.addRental(client4, 5, 16.5f);
          System.out.println(pom2);
+    
+           System.out.println("\nTest usuwania klientów");
+          ap.deleteClient(5);
+          ap.deleteClient(4);
+          ap.deleteClient(10);
+          lan = ap.getClients().toString();
+          System.out.println(lan);
+          
+          System.out.println("\n Test usuwania titleRecord");
+          ap.deleteTitleRecord("ID1");
+        
+         
+          
+          lan = ap.getTitleRecords().toString();
+        System.out.println(lan);
+        
+        System.out.println("\n Test usuwania record");
+       ap.deleteRecord(111);
+       ap.deleteRecord(1);
+        System.out.println(ap.printRecords());
+         
+        System.out.println("\n Test usuwania reservation");
+        ap.deleteReservation(1);
+        ap.deleteReservation(100);
+        System.out.println(ap.getClients().toString());
+          
     }
 
 
@@ -150,6 +178,45 @@ public class Facade {
         return clients;
     }
 
+    public void deleteClient(int number){
+       Client client = searchClient(number);
+       clients.remove(client);
+    }
+    
+    public void deleteTitleRecord(String id){
+        TitleRecord titleRecord = searchTitleRecod(id);
+        titleRecords.remove(titleRecord);
+    }
+    
+    public Client searchClientOfReservation(int number){
+        for (Client client :clients){
+           if (client.searchReservation(number)!=null)
+               return client;
+        }
+        return  null;
+    }
+    
+    public void deleteReservation(int number){
+        Client client = searchClientOfReservation(number);
+        if (client!=null)
+        client.deleteReservation(number);
+    }
+    
+   public void deleteRecord(int number){
+       TitleRecord titleRecord = searchTitleRecordOfRecord(number);
+       if (titleRecord!=null)
+           titleRecord.deleteRecord(number);
+   }
+   
+   public TitleRecord searchTitleRecordOfRecord(int number){
+       for (TitleRecord titleRecord: titleRecords){
+           if (titleRecord.searchRecord(number)!=null)
+               return titleRecord;
+       }
+       return null;
+   }
+
+    
     /**
      * @param clients
      */
@@ -268,7 +335,7 @@ public class Facade {
      * @param data2
      * @param date
      */
-    public String addReservation(String[] data1, String[] data2, LocalDate dateStart, LocalDate dateEnd) {
+    public String addReservation(String[] data1, String[] data2, int number,LocalDate dateStart, LocalDate dateEnd) {
         String result;
         Factory factory = new Factory();
         TitleRecord helpTitleRecord = factory.createTitleRecord(data1),titleRecord;
@@ -281,7 +348,7 @@ public class Facade {
                 client = this.searchClient(helpClient);
                 if(client != null){
                     if(titleRecord.getFreeRecord(dateStart,dateEnd)!= null){
-                    client.addReservation(titleRecord.getFreeRecord(dateStart,dateEnd), dateStart,dateEnd);
+                    client.addReservation(titleRecord.getFreeRecord(dateStart,dateEnd),number, dateStart,dateEnd);
                     result = "reserved";
                     } else result = "no free record";
                 } else result = "no such client";

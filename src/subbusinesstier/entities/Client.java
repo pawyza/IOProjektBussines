@@ -72,9 +72,9 @@ public class Client {
      * @param record
      * @param date
      */
-    public void addReservation(Record record, LocalDate dateStart, LocalDate dateEnd) {
+    public void addReservation(Record record, int number, LocalDate dateStart, LocalDate dateEnd) {
         Factory factory = new Factory();
-        Reservation reservation = factory.createReservation(Reservation.nextNumber++);
+        Reservation reservation = factory.createReservation(number);
         reservation.setClient(this);
         reservation.setDateStart(dateStart);
         reservation.setDateEnd(dateEnd);
@@ -108,6 +108,18 @@ public class Client {
             return (Reservation) reservations.get(index);
         }
         return null;
+    }
+    
+    public Reservation searchReservation(int number){
+        for (Reservation reservation:reservations){
+            if (reservation.getNumber()==number) return reservation;
+        }
+        return null;
+    }
+    
+    public void deleteReservation(int number){
+        Reservation reservation = searchReservation(number);
+        reservations.remove(reservation);
     }
 
     @Override

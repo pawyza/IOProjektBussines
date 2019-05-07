@@ -12,7 +12,7 @@ import subbusinesstier.Factory;
  */
 public class Reservation {
         
-        public static int nextNumber =1;
+      
 	private Record record;
 	private Client client;
 	private int number;
