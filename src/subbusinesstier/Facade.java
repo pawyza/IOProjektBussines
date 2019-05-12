@@ -166,6 +166,10 @@ public class Facade {
     public List<TitleRecord> getTitleRecords() {
         return titleRecords;
     }
+    public List<TitleRecord> getTitleRecordsModel(){
+        return titleRecords;
+    }
+    
 
     /**
      * @param titleRecords
@@ -175,6 +179,9 @@ public class Facade {
     }
 
     public List<Client> getClients() {
+        return clients;
+    }
+    public List<Client> getClientsModel(){
         return clients;
     }
 
@@ -243,6 +250,18 @@ public class Facade {
      * @param data2
      * @return 
      */
+    public String[] transformTittleRecordToString (int index){
+        TitleRecord titleRecord =(TitleRecord) getTitleRecords().toArray()[index];
+        String id = titleRecord.getId();
+        String author = titleRecord.getAuthor();
+        String cast = titleRecord.getCast();
+        String genre = titleRecord.getGenre();
+        String title = titleRecord.getTitle();
+        String[] data ={"3",id,title,author,genre,cast};
+        
+        return data;
+    }
+    
     public ArrayList<String> addRecord(String[] data1, String[] data2) {
 
         TitleRecord help1, titleExist;
@@ -370,10 +389,6 @@ public class Facade {
             return  titleRecords.get(index).getRecordsOfTitleList();
         }
         return null;
-    }
-
-    public Object[][] getTitleRecordModel() {
-        throw new UnsupportedOperationException();
     }
 
     public String printRecords() {
