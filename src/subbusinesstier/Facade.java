@@ -179,6 +179,10 @@ public class Facade {
     public List<TitleRecord> getTitleRecords() {
         return titleRecords;
     }
+    public List<TitleRecord> getTitleRecordsListModel(){
+        return titleRecords;
+    }
+
 
 
     /**
@@ -442,6 +446,13 @@ public class Facade {
             result = client.addRental(number, dayCost);
         } else result = "no such client";
         return result;
+    }
+    
+       public int transformClientIndexToNumber(int index){
+        return getClients().get(index).getNumber();
+    }
+    public String transformTitleRecordIndexToString(int index){
+        return getTitleRecords().get(index).getId();
     }
 
 }
