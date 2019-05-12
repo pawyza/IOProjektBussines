@@ -6,10 +6,11 @@ import subbusinesstier.entities.TitleRecord;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
+
 import subbusinesstier.entities.Record;
-import subbusinesstier.entities.Reservation;
+
 /**
  * PU:
  * Dodaj_tytu�_nagrania, Wyszukaj_tytu�_nagrania, Operacje_na_nagraniach, Dodawanie_nagrania, Modyfikacja_nagrania, Wyszukaj_nagrania, Usuwanie_nagrania, Publikuj, Wy�lij_komunikat, Wyszukaj_klienta, Logowanie, Rejestracja_klienta, Rezerwacja_nagrania,Zwrot_nagrania,Wyszukaj_rezerwacje, Usuwanie_rezerwacji, Op�acenie_rezerwacji,Odebranie_nagrania
@@ -83,11 +84,11 @@ public class Facade {
         if (pom != null) {
             System.out.print(pom);
         }
-        
+
         System.out.println("\nTest szukania nagrań o tytule:");
         System.out.println(ap.searchRecordsOfTitle(titleRecord1));
 
-                    
+
         System.out.println("\nTest dodawania klientow");
         String client1[] = {"2557835671236456", "Ania", "1", "Tom"};
         String client2[] = {"2978365671236456", "Kamil", "2", "Iop"};
@@ -105,71 +106,80 @@ public class Facade {
         lan = ap.getClients().toString();
         System.out.println(lan);
         System.out.println("\nTest dodawania rezerwacji");
-            LocalDate date1 = LocalDate.of(2019, Month.MAY, 10);
-            LocalDate date2 = LocalDate.of(2019, Month.MAY, 18);
-            LocalDate date3 = LocalDate.of(2019, Month.JULY, 4);
-            LocalDate date4 = LocalDate.of(2019, Month.JULY, 21);
-        
-        
-        System.out.println(ap.addReservation(titleRecord1, client1, 1,date1,date2));
-        System.out.println(ap.addReservation(titleRecord1, client2, 2,date1,date2));
-        System.out.println(ap.addReservation(titleRecord1, client5,3, date1,date2));
-        System.out.println(ap.addReservation(titleRecord1, client4,4, date1,date2));
-        System.out.println(ap.addReservation(titleRecord2, client2,5, date3,date4));
-        System.out.println(ap.addReservation(titleRecord2, client3,6, date3,date4));
-        System.out.println(ap.addReservation(titleRecord3, client3,7, date3,date4));
+        LocalDate date1 = LocalDate.of(2019, Month.MAY, 10);
+        LocalDate date2 = LocalDate.of(2019, Month.MAY, 18);
+        LocalDate date3 = LocalDate.of(2019, Month.JULY, 4);
+        LocalDate date4 = LocalDate.of(2019, Month.JULY, 21);
+
+
+        System.out.println(ap.addReservation(titleRecord1, client1, 1, date1, date2));
+        System.out.println(ap.addReservation(titleRecord1, client2, 2, date1, date2));
+        System.out.println(ap.addReservation(titleRecord1, client5, 3, date1, date2));
+        System.out.println(ap.addReservation(titleRecord1, client4, 4, date1, date2));
+        System.out.println(ap.addReservation(titleRecord2, client2, 5, date3, date4));
+        System.out.println(ap.addReservation(titleRecord2, client3, 6, date3, date4));
+        System.out.println(ap.addReservation(titleRecord3, client3, 7, date3, date4));
 
         lan = ap.getClients().toString();
         System.out.println(lan);
-        
+
         System.out.println("\nTest dodawania rental");
         String pom2;
         pom2 = ap.addRental(client1, 1, 10);
         System.out.println(pom2);
         pom2 = ap.addRental(client2, 2, 20);
-         System.out.println(pom2);
+        System.out.println(pom2);
         pom2 = ap.addRental(client3, 3, 30);
-         System.out.println(pom2);
+        System.out.println(pom2);
         pom2 = ap.addRental(client6, 4, 15);
-         System.out.println(pom2);
+        System.out.println(pom2);
         pom2 = ap.addRental(client4, 5, 16.5f);
-         System.out.println(pom2);
-    
-           System.out.println("\nTest usuwania klientów");
-          ap.deleteClient(5);
-          ap.deleteClient(4);
-          ap.deleteClient(10);
-          lan = ap.getClients().toString();
-          System.out.println(lan);
-          
-          System.out.println("\n Test usuwania titleRecord");
-          ap.deleteTitleRecord("ID1");
-        
-         
-          
-          lan = ap.getTitleRecords().toString();
+        System.out.println(pom2);
+
+        System.out.println("\nTest usuwania klientów");
+        ap.deleteClient(5);
+        ap.deleteClient(4);
+        ap.deleteClient(10);
+        lan = ap.getClients().toString();
         System.out.println(lan);
-        
+
+        System.out.println("\n Test usuwania titleRecord");
+        ap.deleteTitleRecord("ID1");
+
+
+        lan = ap.getTitleRecords().toString();
+        System.out.println(lan);
+
         System.out.println("\n Test usuwania record");
-       ap.deleteRecord(111);
-       ap.deleteRecord(1);
+        ap.deleteRecord(111);
+        ap.deleteRecord(1);
         System.out.println(ap.printRecords());
-         
+
         System.out.println("\n Test usuwania reservation");
         ap.deleteReservation(1);
         ap.deleteReservation(100);
         System.out.println(ap.getClients().toString());
-          
+
+
+        System.out.println("\n Test pozyskiwania title records");
+        for (Object[] record : ap.getTitleRecordsModel()) {
+            System.out.println(Arrays.toString(record));
+        }
+
+
+
+        System.out.println("\n Text pozyskiwania wszystkich records");
+        for (Object[] record : ap.getRecordsModel()) {
+            System.out.println(Arrays.toString(record));
+        }
+
     }
 
 
     public List<TitleRecord> getTitleRecords() {
         return titleRecords;
     }
-    public List<TitleRecord> getTitleRecordsModel(){
-        return titleRecords;
-    }
-    
+
 
     /**
      * @param titleRecords
@@ -181,49 +191,72 @@ public class Facade {
     public List<Client> getClients() {
         return clients;
     }
-    public List<Client> getClientsModel(){
+
+    public List<Client> getClientsModel() {
         return clients;
     }
 
-    public void deleteClient(int number){
-       Client client = searchClient(number);
-       clients.remove(client);
+    public void deleteClient(int number) {
+        Client client = searchClient(number);
+        clients.remove(client);
     }
-    
-    public void deleteTitleRecord(String id){
+
+    public void deleteTitleRecord(String id) {
         TitleRecord titleRecord = searchTitleRecod(id);
         titleRecords.remove(titleRecord);
     }
-    
-    public Client searchClientOfReservation(int number){
-        for (Client client :clients){
-           if (client.searchReservation(number)!=null)
-               return client;
-        }
-        return  null;
-    }
-    
-    public void deleteReservation(int number){
-        Client client = searchClientOfReservation(number);
-        if (client!=null)
-        client.deleteReservation(number);
-    }
-    
-   public void deleteRecord(int number){
-       TitleRecord titleRecord = searchTitleRecordOfRecord(number);
-       if (titleRecord!=null)
-           titleRecord.deleteRecord(number);
-   }
-   
-   public TitleRecord searchTitleRecordOfRecord(int number){
-       for (TitleRecord titleRecord: titleRecords){
-           if (titleRecord.searchRecord(number)!=null)
-               return titleRecord;
-       }
-       return null;
-   }
 
-    
+    public Client searchClientOfReservation(int number) {
+        for (Client client : clients) {
+            if (client.searchReservation(number) != null)
+                return client;
+        }
+        return null;
+    }
+
+    public Object[][] getTitleRecordsModel() {
+        Object[][] titlleRecordsModel = new Object[titleRecords.size()][];
+        int i = 0;
+        for (TitleRecord next : titleRecords) {
+            titlleRecordsModel[i++] = next.toString_();
+
+        }
+        return titlleRecordsModel;
+    }
+
+    public ArrayList<Object[]> getRecordsModel() {
+        ArrayList<Object[]> recordsModel = new ArrayList<>();
+        for (TitleRecord titleRecord : titleRecords) {
+            List<Record> helpList = titleRecord.getRecords();
+            for (Record help1 : helpList) {
+                recordsModel.add(help1._toString_());
+            }
+        }
+        return recordsModel;
+    }
+
+
+    public void deleteReservation(int number) {
+        Client client = searchClientOfReservation(number);
+        if (client != null)
+            client.deleteReservation(number);
+    }
+
+    public void deleteRecord(int number) {
+        TitleRecord titleRecord = searchTitleRecordOfRecord(number);
+        if (titleRecord != null)
+            titleRecord.deleteRecord(number);
+    }
+
+    public TitleRecord searchTitleRecordOfRecord(int number) {
+        for (TitleRecord titleRecord : titleRecords) {
+            if (titleRecord.searchRecord(number) != null)
+                return titleRecord;
+        }
+        return null;
+    }
+
+
     /**
      * @param clients
      */
@@ -245,23 +278,19 @@ public class Facade {
 
     }
 
-    /**
-     * @param data1
-     * @param data2
-     * @return 
-     */
-    public String[] transformTittleRecordToString (int index){
-        TitleRecord titleRecord =(TitleRecord) getTitleRecords().toArray()[index];
+
+    public String[] transformTittleRecordToString(int index) {
+        TitleRecord titleRecord = (TitleRecord) getTitleRecords().toArray()[index];
         String id = titleRecord.getId();
         String author = titleRecord.getAuthor();
         String cast = titleRecord.getCast();
         String genre = titleRecord.getGenre();
         String title = titleRecord.getTitle();
-        String[] data ={"3",id,title,author,genre,cast};
-        
+        String[] data = {"3", id, title, author, genre, cast};
+
         return data;
     }
-    
+
     public ArrayList<String> addRecord(String[] data1, String[] data2) {
 
         TitleRecord help1, titleExist;
@@ -277,7 +306,7 @@ public class Facade {
 
     /**
      * @param titleRecord
-     * @return 
+     * @return
      */
     public TitleRecord searchTitleRecord(TitleRecord titleRecord) {
         int index;
@@ -286,17 +315,16 @@ public class Facade {
         }
         return null;
     }
-    
-    
+
 
     public TitleRecord searchTitleRecod(String id) {
-        for(TitleRecord titleRecord : titleRecords){
+        for (TitleRecord titleRecord : titleRecords) {
             if (titleRecord.getId().equals(id))
                 return titleRecord;
         }
         return null;
     }
-        
+
     /**
      * @param client
      * @param message
@@ -340,39 +368,34 @@ public class Facade {
         return null;
     }
 
-        public Client searchClient(int id) {
-        for(Client client : clients){
+    public Client searchClient(int id) {
+        for (Client client : clients) {
             if (client.getNumber() == id)
                 return client;
-            }
+        }
         return null;
     }
 
-    
-    /**
-     * @param data1
-     * @param data2
-     * @param date
-     */
-    public String addReservation(String[] data1, String[] data2, int number,LocalDate dateStart, LocalDate dateEnd) {
+
+    public String addReservation(String[] data1, String[] data2, int number, LocalDate dateStart, LocalDate dateEnd) {
         String result;
         Factory factory = new Factory();
-        TitleRecord helpTitleRecord = factory.createTitleRecord(data1),titleRecord;
-        
+        TitleRecord helpTitleRecord = factory.createTitleRecord(data1), titleRecord;
+
         titleRecord = this.searchTitleRecord(helpTitleRecord);
-        if(titleRecord != null)
-            if(titleRecord.searchFreeRecord(dateStart, dateEnd)){
-                Client helpClient = factory.createClient(data2),client;
-                
+        if (titleRecord != null)
+            if (titleRecord.searchFreeRecord(dateStart, dateEnd)) {
+                Client helpClient = factory.createClient(data2), client;
+
                 client = this.searchClient(helpClient);
-                if(client != null){
-                    if(titleRecord.getFreeRecord(dateStart,dateEnd)!= null){
-                    client.addReservation(titleRecord.getFreeRecord(dateStart,dateEnd),number, dateStart,dateEnd);
-                    result = "reserved";
+                if (client != null) {
+                    if (titleRecord.getFreeRecord(dateStart, dateEnd) != null) {
+                        client.addReservation(titleRecord.getFreeRecord(dateStart, dateEnd), number, dateStart, dateEnd);
+                        result = "reserved";
                     } else result = "no free record";
                 } else result = "no such client";
             } else result = "no such book";
-         else result = "no such title";
+        else result = "no such title";
         return result;
     }
 
@@ -386,14 +409,14 @@ public class Facade {
         int index;
 
         if ((index = titleRecords.indexOf(titleRecord)) != -1) {
-            return  titleRecords.get(index).getRecordsOfTitleList();
+            return titleRecords.get(index).getRecordsOfTitleList();
         }
         return null;
     }
 
     public String printRecords() {
         String result = "";
-        for(TitleRecord titleRecord : titleRecords){
+        for (TitleRecord titleRecord : titleRecords) {
             return titleRecord.printRecords();
         }
         return result;
@@ -401,25 +424,21 @@ public class Facade {
 
     public String printTitleRecords() {
         String result = "";
-        for(TitleRecord titleRecord : titleRecords){
+        for (TitleRecord titleRecord : titleRecords) {
             result += titleRecord.toString();
         }
         return result;
     }
 
-    /**
-     * @param data1
-     * @param data2
-     * @param returnDate
-     */
-    public String addRental(String[] data1,int number , float dayCost) {
+
+    public String addRental(String[] data1, int number, float dayCost) {
         String result;
         Factory factory = new Factory();
-        
-        Client helpClient = factory.createClient(data1),client;
-        
+
+        Client helpClient = factory.createClient(data1), client;
+
         client = this.searchClient(helpClient);
-        if(client != null){
+        if (client != null) {
             result = client.addRental(number, dayCost);
         } else result = "no such client";
         return result;

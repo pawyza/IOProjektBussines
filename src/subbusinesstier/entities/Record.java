@@ -39,6 +39,7 @@ public class Record {
     }
 
 
+
     public void setReservations(ArrayList reservations) {
         this.reservations = reservations;
     }
@@ -87,6 +88,14 @@ public class Record {
             }
         }
         return true;
+    }
+
+    public String[] _toString_() {
+        String help[] = new String[4];
+        help[0] = String.valueOf(getNumber());
+        help[1] = getTitleRecord().toString();
+        return help;
+
     }
 
 }
