@@ -169,7 +169,10 @@ public class Facade {
         for (Object[] record : ap.getRecordsModel()) {
             System.out.println(Arrays.toString(record));
         }
-
+        System.out.println("testtesttest");
+        ap.getTitleRecordsList();
+        ap.getRecordsList();
+        System.out.println(ap.transformRecordIndexToNumber(2));
     }
 
 
@@ -178,6 +181,7 @@ public class Facade {
     }
     
     public List getTitleRecordsList() {
+        System.out.println(titleRecords);
         return titleRecords;
     }
 
@@ -212,6 +216,7 @@ public class Facade {
         for(TitleRecord titleRecord : titleRecords){
              records.addAll(titleRecord.getRecords());
         }
+        System.out.println(records);
         return records;
     }
     
@@ -535,8 +540,13 @@ public class Facade {
        public int transformClientIndexToNumber(int index){
         return getClients().get(index).getNumber();
     }
+       
     public String transformTitleRecordIndexToString(int index){
         return getTitleRecords().get(index).getId();
     }
-
+    
+      public int transformRecordIndexToNumber(int index){
+          TitleRecord help = new TitleRecord();
+          return help.getRecordNumber(getRecordsList().get(index));
+    }
 }
