@@ -160,7 +160,6 @@ public class Facade {
         ap.deleteReservation(100);
         System.out.println(ap.getClients().toString());
 
-
         System.out.println("\n Test pozyskiwania title records");
         for (Object[] record : ap.getTitleRecordsModel()) {
             System.out.println(Arrays.toString(record));
@@ -188,6 +187,15 @@ public class Facade {
         }
         return titleRecordModel;
     }
+
+    public ArrayList<String> getTitleRecordsModelString() {
+        ArrayList<String> titleRecordModelString = new ArrayList<>();
+        for (Object[] titleRecord : getTitleRecordsModel()) {
+            titleRecordModelString.add(Arrays.toString(titleRecord));
+        }
+        return titleRecordModelString;
+    }
+
 
 
 
