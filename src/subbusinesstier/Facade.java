@@ -179,8 +179,14 @@ public class Facade {
     public List<TitleRecord> getTitleRecords() {
         return titleRecords;
     }
-    public List<TitleRecord> getTitleRecordsListModel(){
-        return titleRecords;
+
+
+    public ArrayList<Object[]> getTitleRecordsModel() {
+        ArrayList<Object[]> titleRecordModel = new ArrayList<>();
+        for (TitleRecord titleRecord : titleRecords) {
+            titleRecordModel.add(titleRecord.toString_());
+        }
+        return titleRecordModel;
     }
 
 
@@ -196,8 +202,12 @@ public class Facade {
         return clients;
     }
 
-    public List<Client> getClientsModel() {
-        return clients;
+    public ArrayList<Object[]> getClientsModel() {
+        ArrayList<Object[]> clientsModel = new ArrayList<>();
+        for (Client client : clients) {
+            clientsModel.add(client.toString_());
+        }
+        return clientsModel;
     }
 
     public void deleteClient(int number) {
@@ -217,7 +227,7 @@ public class Facade {
         }
         return null;
     }
-
+/*
     public Object[][] getTitleRecordsModel() {
         Object[][] titlleRecordsModel = new Object[titleRecords.size()][];
         int i = 0;
@@ -227,7 +237,7 @@ public class Facade {
         }
         return titlleRecordsModel;
     }
-
+*/
     public ArrayList<Object[]> getRecordsModel() {
         ArrayList<Object[]> recordsModel = new ArrayList<>();
         for (TitleRecord titleRecord : titleRecords) {
