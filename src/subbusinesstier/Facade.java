@@ -227,6 +227,14 @@ public class Facade {
         }
         return null;
     }
+    
+    public String searchClientsInfoOfReservation(int number) {
+        for (Client client : clients) {
+            if (client.searchReservation(number) != null)
+                return client.toString();
+        }
+        return null;
+    }
 /*
     public Object[][] getTitleRecordsModel() {
         Object[][] titlleRecordsModel = new Object[titleRecords.size()][];
