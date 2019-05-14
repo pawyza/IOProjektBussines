@@ -201,6 +201,11 @@ public class TitleRecord {
             }
         return recordsModel;
     }
+      
+      public int getRecordNumber(Object object){
+          Record record = (Record) object;
+          return record.getNumber();
+      }
 
     @Override
     public int hashCode() {
