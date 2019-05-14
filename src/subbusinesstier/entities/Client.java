@@ -146,10 +146,10 @@ public class Client {
     
         public String[] toString_() {
         String help[] = new String[4];
-        help[0] = String.valueOf(getNumber());
+        help[2] = String.valueOf(getNumber());
         help[1] = getLogin();
-        help[2] = getPassword();
-        help[3] = getNumberCard();
+        help[3] = getPassword();
+        help[0] = getNumberCard();
         return help;
     }
 
