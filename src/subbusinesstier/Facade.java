@@ -178,7 +178,7 @@ public class Facade {
     }
 
 
-    public ArrayList<Object[]> getTitleRecordsModel() {
+    public List<Object[]> getTitleRecordsModel() {
         ArrayList<Object[]> titleRecordModel = new ArrayList<>();
         for (TitleRecord titleRecord : titleRecords) {
             titleRecordModel.add(titleRecord.toString_());
@@ -186,7 +186,7 @@ public class Facade {
         return titleRecordModel;
     }
 
-    public ArrayList<String> getTitleRecordsModelString() {
+    public List<String> getTitleRecordsModelString() {
         ArrayList<String> titleRecordModelString = new ArrayList<>();
         for (Object[] titleRecord : getTitleRecordsModel()) {
             titleRecordModelString.add(Arrays.toString(titleRecord));
@@ -208,7 +208,7 @@ public class Facade {
         return clients;
     }
 
-    public ArrayList<Object[]> getClientsModel() {
+    public List<Object[]> getClientsModel() {
         ArrayList<Object[]> clientsModel = new ArrayList<>();
         for (Client client : clients) {
             clientsModel.add(client.toString_());
@@ -216,7 +216,7 @@ public class Facade {
         return clientsModel;
     }
     
-    public ArrayList<String> getClientsModelString() {
+    public List<String> getClientsModelString() {
         ArrayList<String> clientsModelString = new ArrayList<>();
         for (Object[] clientsModel : getClientsModel()) {
             clientsModelString.add(Arrays.toString(clientsModel));
@@ -260,7 +260,7 @@ public class Facade {
         return titlleRecordsModel;
     }
 */
-    public ArrayList<Object[]> getRecordsModel() {
+    public List<Object[]> getRecordsModel() {
         ArrayList<Object[]> recordsModel = new ArrayList<>();
         for (TitleRecord titleRecord : titleRecords) {
             List<Object[]> helpList = titleRecord.getRecordsModel();
@@ -271,7 +271,7 @@ public class Facade {
         return recordsModel;
     }
 
-    public ArrayList<String> getRecordsModelString() {
+    public List<String> getRecordsModelString() {
         ArrayList<String> recordsModelString = new ArrayList<>();
         for (Object[] recordsModel : getRecordsModel()) {
             recordsModelString.add(Arrays.toString(recordsModel));
@@ -335,18 +335,18 @@ public class Facade {
     }
 
     public ArrayList<String> addRecord(String[] data1, String[] data2) {
-
         TitleRecord help1, titleExist;
         Factory factory = new Factory();
         help1 = factory.createTitleRecord(data1);
         ArrayList<String> help = new ArrayList<>();
         if ((titleExist = searchTitleRecord(help1)) != null) {
-            ArrayList<Object[]> help2 = titleExist.addRecord(data2);
-            for(Object[] object : help2){
-                help.add(Arrays.toString(object));
-                }
-            return help;
-
+            ArrayList<Object[]> help2;
+            if((help2 = titleExist.addRecord(data2)) != null){
+                for(Object[] object : help2){
+                    help.add(Arrays.toString(object));
+                    }
+                return help;
+            }
         }
         return null;
     }
@@ -446,7 +446,7 @@ public class Facade {
         return result;
     }
 
-    public ArrayList<Object[]> getReservationModel() {
+    public List<Object[]> getReservationModel() {
         ArrayList<Object[]> reservationModel = new ArrayList<>();
         for (Client client: clients) {
             List<Object[]> helpList = client.getReservationModel();
@@ -457,7 +457,7 @@ public class Facade {
         return reservationModel;
     }
 
-    public ArrayList<String> getReservationModelString() {
+    public List<String> getReservationModelString() {
         ArrayList<String> reservationModelString = new ArrayList<>();
         for (Object[] reservationModel : getReservationModel()) {
             reservationModelString.add(Arrays.toString(reservationModel));
