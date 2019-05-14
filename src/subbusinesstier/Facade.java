@@ -8,6 +8,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import subbusinesstier.entities.Record;
 
 /**
  * PU:
@@ -538,5 +539,12 @@ public class Facade {
     public String transformTitleRecordIndexToString(int index){
         return getTitleRecords().get(index).getId();
     }
+    public int transformRecordIndexToNumber(int index){
+        return getTitleRecords().get(index).getRecords().get(index).getNumber();
+    }
+     public int transformReservationIndexToNumber(int index){
+        return getClients().get(index).getReservations().get(index).getNumber();
+    }
 
+    
 }
