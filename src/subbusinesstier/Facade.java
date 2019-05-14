@@ -545,8 +545,14 @@ public class Facade {
         return getTitleRecords().get(index).getId();
     }
     
+     public int transformReservationIndexToNumber(int index){
+          Client help = new Client();
+          return help.getReservationNumber(getReservationList().get(index));
+    }
+     
       public int transformRecordIndexToNumber(int index){
           TitleRecord help = new TitleRecord();
           return help.getRecordNumber(getRecordsList().get(index));
     }
+    
 }

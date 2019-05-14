@@ -175,11 +175,12 @@ public class TitleRecord {
     }
 
     public String[] toString_() {
-        String help[] = new String[4];
-        help[0] = getTitle();
-        help[1] = getAuthor();
-        help[2] = getCast();
-        help[3] = getGenre();
+        String help[] = new String[5];
+        help[0] = getId();
+        help[1] = getTitle();
+        help[2] = getAuthor();
+        help[3] = getCast();
+        help[4] = getGenre();
         return help;
 
     }

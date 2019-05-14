@@ -94,7 +94,7 @@ public class Reservation {
             }
             return result;
 	}
-
+      
 	/**
 	 * 
 	 * @param date

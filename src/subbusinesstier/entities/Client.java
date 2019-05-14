@@ -129,6 +129,11 @@ public class Client {
         Reservation reservation = searchReservation(number);
         reservations.remove(reservation);
     }
+      
+      public int getReservationNumber(Object object){
+          Reservation reservation = (Reservation) object;
+          return reservation.getNumber();
+      }
 
     @Override
     public int hashCode() {
