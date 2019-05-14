@@ -87,21 +87,10 @@ public class TitleRecord {
         this.records = records;
     }
 
-    public ArrayList<String> getRecordsModel() {
-
-        ArrayList<String> title_records = new ArrayList<>();
-        for (Record next : records) {
-            title_records.add(next.toString());
-        }
-        return title_records;
-
-
-    }
-
     /**
      * @param data
      */
-    public ArrayList<String> addRecord(String[] data) {
+    public ArrayList<Object[]> addRecord(String[] data) {
         Factory factory = new Factory();
         Record newRecord;
         newRecord = factory.createRecord(data);
@@ -202,6 +191,14 @@ public class TitleRecord {
             result = true;
         }
         return result;
+    }
+    
+      public ArrayList<Object[]> getRecordsModel() {
+        ArrayList<Object[]> recordsModel = new ArrayList<>();
+        for (Record record : records) {
+                recordsModel.add(record._toString_());
+            }
+        return recordsModel;
     }
 
     @Override

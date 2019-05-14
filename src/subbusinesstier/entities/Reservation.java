@@ -111,5 +111,15 @@ public class Reservation {
 	public String toString() {
 		return " Number: " + getNumber()  + " Start date: " + getDateStart().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))  + " End date: " + getDateEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))  + " Number: " + getNumber();
 	}
-
+        
+        public String[] toString_() {
+            String help[] = new String[4];
+            help[0] = String.valueOf(getNumber());
+            help[1] = getClient().toString();
+            help[2] = getRecord().toString();
+            help[3] = getDateStart().toString();
+            help[4] = getDateEnd().toString();
+            help[5] = getRental().toString();
+            return help;
+    }
 }

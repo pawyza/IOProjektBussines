@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import subbusinesstier.entities.Record;
-
 /**
  * PU:
  * Dodaj_tytu�_nagrania, Wyszukaj_tytu�_nagrania, Operacje_na_nagraniach, Dodawanie_nagrania, Modyfikacja_nagrania, Wyszukaj_nagrania, Usuwanie_nagrania, Publikuj, Wy�lij_komunikat, Wyszukaj_klienta, Logowanie, Rejestracja_klienta, Rezerwacja_nagrania,Zwrot_nagrania,Wyszukaj_rezerwacje, Usuwanie_rezerwacji, Op�acenie_rezerwacji,Odebranie_nagrania
@@ -217,7 +215,7 @@ public class Facade {
         }
         return clientsModel;
     }
-
+    
     public void deleteClient(int number) {
         Client client = searchClient(number);
         clients.remove(client);
@@ -257,13 +255,14 @@ public class Facade {
     public ArrayList<Object[]> getRecordsModel() {
         ArrayList<Object[]> recordsModel = new ArrayList<>();
         for (TitleRecord titleRecord : titleRecords) {
-            List<Record> helpList = titleRecord.getRecords();
-            for (Record help1 : helpList) {
-                recordsModel.add(help1._toString_());
+            List<Object[]> helpList = titleRecord.getRecordsModel();
+            for (Object[] help : helpList) {
+                recordsModel.add(help);
             }
         }
         return recordsModel;
     }
+
 
 
     public void deleteReservation(int number) {
@@ -326,9 +325,13 @@ public class Facade {
         TitleRecord help1, titleExist;
         Factory factory = new Factory();
         help1 = factory.createTitleRecord(data1);
+        ArrayList<String> help = new ArrayList<>();
         if ((titleExist = searchTitleRecord(help1)) != null) {
-
-            return titleExist.addRecord(data2);
+            ArrayList<Object[]> help2 = titleExist.addRecord(data2);
+            for(Object[] object : help2){
+                help.add(Arrays.toString(object));
+                }
+            return help;
 
         }
         return null;
@@ -429,6 +432,18 @@ public class Facade {
         return result;
     }
 
+    public ArrayList<Object[]> getReservationModel() {
+        ArrayList<Object[]> reservationModel = new ArrayList<>();
+        for (Client client: clients) {
+            List<Object[]> helpList = client.getReservationModel();
+            for (Object[] help : helpList) {
+                reservationModel.add(help);
+            }
+        }
+        return reservationModel;
+    }
+
+    
     /**
      * @param data1
      */

@@ -92,6 +92,14 @@ public class Client {
         } else return "no such reservation";
     }
     
+      public ArrayList<Object[]> getReservationModel() {
+        ArrayList<Object[]> reservationsModel = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+                reservationsModel.add(reservation.toString_());
+            }
+        return reservationsModel;
+    }
+      
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
