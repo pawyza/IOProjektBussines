@@ -216,6 +216,14 @@ public class Facade {
         return clientsModel;
     }
     
+    public ArrayList<String> getClientsModelString() {
+        ArrayList<String> clientsModelString = new ArrayList<>();
+        for (Object[] clientsModel : getClientsModel()) {
+            clientsModelString.add(Arrays.toString(clientsModel));
+        }
+        return clientsModelString;
+    }
+    
     public void deleteClient(int number) {
         Client client = searchClient(number);
         clients.remove(client);
@@ -263,7 +271,13 @@ public class Facade {
         return recordsModel;
     }
 
-
+    public ArrayList<String> getRecordsModelString() {
+        ArrayList<String> recordsModelString = new ArrayList<>();
+        for (Object[] recordsModel : getRecordsModel()) {
+            recordsModelString.add(Arrays.toString(recordsModel));
+        }
+        return recordsModelString;
+    }
 
     public void deleteReservation(int number) {
         Client client = searchClientOfReservation(number);
@@ -443,7 +457,13 @@ public class Facade {
         return reservationModel;
     }
 
-    
+    public ArrayList<String> getReservationModelString() {
+        ArrayList<String> reservationModelString = new ArrayList<>();
+        for (Object[] reservationModel : getReservationModel()) {
+            reservationModelString.add(Arrays.toString(reservationModel));
+        }
+        return reservationModelString;
+    }
     /**
      * @param data1
      */
