@@ -263,7 +263,7 @@ public class Facade {
         ArrayList<String[]> h = new ArrayList<>();
         for (TitleRecord titleRecord : titleRecords) {
             for (Record record : titleRecord.getRecords()) {
-                h.add(new String[]{String.valueOf(record.getNumber())});
+                h.add(new String[]{String.valueOf(record.getNumber()),record.getTitleRecord().getTitle()});
             }
 
         }
