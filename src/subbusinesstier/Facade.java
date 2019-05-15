@@ -275,10 +275,21 @@ public class Facade {
         ArrayList<String[]> h = new ArrayList<>();
         for (Client client : clients) {
             for (Reservation reservation : client.getReservations()) {
-                h.add(new String[]{String.valueOf(reservation.getNumber()),reservation.getDateStart().format(formatter), reservation.getDateEnd().format(formatter)});
+                h.add(new String[]{
+                    String.valueOf(reservation.getClient().getNumber()),
+                    String.valueOf(reservation.getNumber()),
+                    reservation.getDateStart().format(formatter), 
+                    reservation.getDateEnd().format(formatter),
+                    String.valueOf(reservation.getRecord().getNumber()),
+                    reservation.getRecord().getTitleRecord().getTitle()
+                    
+                
+                });
+            
             }
 
         }
+      
         return h;
     }
 
