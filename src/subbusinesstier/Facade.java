@@ -14,8 +14,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * PU:
- * Dodaj_tytu�_nagrania, Wyszukaj_tytu�_nagrania, Operacje_na_nagraniach, Dodawanie_nagrania, Modyfikacja_nagrania, Wyszukaj_nagrania, Usuwanie_nagrania, Publikuj, Wy�lij_komunikat, Wyszukaj_klienta, Logowanie, Rejestracja_klienta, Rezerwacja_nagrania,Zwrot_nagrania,Wyszukaj_rezerwacje, Usuwanie_rezerwacji, Op�acenie_rezerwacji,Odebranie_nagrania
+ * PU: Dodaj_tytu�_nagrania, Wyszukaj_tytu�_nagrania, Operacje_na_nagraniach,
+ * Dodawanie_nagrania, Modyfikacja_nagrania, Wyszukaj_nagrania,
+ * Usuwanie_nagrania, Publikuj, Wy�lij_komunikat, Wyszukaj_klienta, Logowanie,
+ * Rejestracja_klienta, Rezerwacja_nagrania,Zwrot_nagrania,Wyszukaj_rezerwacje,
+ * Usuwanie_rezerwacji, Op�acenie_rezerwacji,Odebranie_nagrania
  */
 public class Facade {
 
@@ -49,7 +52,6 @@ public class Facade {
         ap.addTitleRecord(titleRecord5);
         ap.addTitleRecord(titleRecord5);
         ap.addTitleRecord(titleRecord6);
-
 
         String lan = ap.getTitleRecords().toString();
         System.out.println(lan);
@@ -90,7 +92,6 @@ public class Facade {
         System.out.println("\nTest szukania nagrań o tytule:");
         System.out.println(ap.searchRecordsOfTitle(titleRecord1));
 
-
         System.out.println("\nTest dodawania klientow");
         String client1[] = {"2557835671236456", "Ania", "1", "Tom"};
         String client2[] = {"2978365671236456", "Kamil", "2", "Iop"};
@@ -112,7 +113,6 @@ public class Facade {
         LocalDate date2 = LocalDate.of(2019, Month.MAY, 18);
         LocalDate date3 = LocalDate.of(2019, Month.JULY, 4);
         LocalDate date4 = LocalDate.of(2019, Month.JULY, 21);
-
 
         System.out.println(ap.addReservation(titleRecord1, client1, 1, date1, date2));
         System.out.println(ap.addReservation(titleRecord1, client2, 2, date1, date2));
@@ -148,7 +148,6 @@ public class Facade {
         System.out.println("\n Test usuwania titleRecord");
         ap.deleteTitleRecord("ID1");
 
-
         lan = ap.getTitleRecords().toString();
         System.out.println(lan);
 
@@ -167,7 +166,6 @@ public class Facade {
             System.out.println(Arrays.toString(record));
         }
 
-
         System.out.println("\n Text pozyskiwania wszystkich records");
         for (Object[] record : ap.getRecordsModel()) {
             System.out.println(Arrays.toString(record));
@@ -177,13 +175,11 @@ public class Facade {
         ap.getRecordsList();
         System.out.println(ap.transformRecordIndexToNumber(2));
 
-
         System.out.println(Arrays.toString(ap.getReservationStrings().get(0)));
         System.out.println(Arrays.toString(ap.getClientStrings().get(0)));
         System.out.println(Arrays.toString(ap.getTitleRecordStrings().get(0)));
         System.out.println(Arrays.toString(ap.getRecordStrings().get(0)));
     }
-
 
     public List<TitleRecord> getTitleRecords() {
         return titleRecords;
@@ -209,7 +205,6 @@ public class Facade {
         }
         return titleRecordModelString;
     }
-
 
     /**
      * @param titleRecords
@@ -263,7 +258,7 @@ public class Facade {
         ArrayList<String[]> h = new ArrayList<>();
         for (TitleRecord titleRecord : titleRecords) {
             for (Record record : titleRecord.getRecords()) {
-                h.add(new String[]{String.valueOf(record.getNumber()),record.getTitleRecord().getTitle()});
+                h.add(new String[]{String.valueOf(record.getNumber()), record.getTitleRecord().getTitle()});
             }
 
         }
@@ -275,24 +270,12 @@ public class Facade {
         ArrayList<String[]> h = new ArrayList<>();
         for (Client client : clients) {
             for (Reservation reservation : client.getReservations()) {
-                h.add(new String[]{
-                    String.valueOf(reservation.getClient().getNumber()),
-                    String.valueOf(reservation.getNumber()),
-                    reservation.getDateStart().format(formatter), 
-                    reservation.getDateEnd().format(formatter),
-                    String.valueOf(reservation.getRecord().getNumber()),
-                    reservation.getRecord().getTitleRecord().getTitle()
-                    
-                
-                });
-            
+                h.add(new String[]{String.valueOf(reservation.getNumber()), reservation.getDateStart().format(formatter), reservation.getDateEnd().format(formatter)});
             }
 
         }
-      
         return h;
     }
-
 
     public List<Object[]> getClientsModel() {
         ArrayList<Object[]> clientsModel = new ArrayList<>();
@@ -322,16 +305,18 @@ public class Facade {
 
     public Client searchClientOfReservation(int number) {
         for (Client client : clients) {
-            if (client.searchReservation(number) != null)
+            if (client.searchReservation(number) != null) {
                 return client;
+            }
         }
         return null;
     }
 
     public String searchClientsInfoOfReservation(int number) {
         for (Client client : clients) {
-            if (client.searchReservation(number) != null)
+            if (client.searchReservation(number) != null) {
                 return client.toString();
+            }
         }
         return null;
     }
@@ -346,7 +331,7 @@ public class Facade {
             }
             return titlleRecordsModel;
         }
-    */
+     */
     public List<Object[]> getRecordsModel() {
         ArrayList<Object[]> recordsModel = new ArrayList<>();
         for (TitleRecord titleRecord : titleRecords) {
@@ -368,24 +353,26 @@ public class Facade {
 
     public void deleteReservation(int number) {
         Client client = searchClientOfReservation(number);
-        if (client != null)
+        if (client != null) {
             client.deleteReservation(number);
+        }
     }
 
     public void deleteRecord(int number) {
         TitleRecord titleRecord = searchTitleRecordOfRecord(number);
-        if (titleRecord != null)
+        if (titleRecord != null) {
             titleRecord.deleteRecord(number);
+        }
     }
 
     public TitleRecord searchTitleRecordOfRecord(int number) {
         for (TitleRecord titleRecord : titleRecords) {
-            if (titleRecord.searchRecord(number) != null)
+            if (titleRecord.searchRecord(number) != null) {
                 return titleRecord;
+            }
         }
         return null;
     }
-
 
     /**
      * @param clients
@@ -407,7 +394,6 @@ public class Facade {
         return null;
 
     }
-
 
     public String[] transformTittleRecordToString(int index) {
         TitleRecord titleRecord = (TitleRecord) getTitleRecords().toArray()[index];
@@ -450,11 +436,11 @@ public class Facade {
         return null;
     }
 
-
     public TitleRecord searchTitleRecod(String id) {
         for (TitleRecord titleRecord : titleRecords) {
-            if (titleRecord.getId().equals(id))
+            if (titleRecord.getId().equals(id)) {
                 return titleRecord;
+            }
         }
         return null;
     }
@@ -471,7 +457,6 @@ public class Facade {
      * @param titleRecord
      * @return
      */
-
     public String[] addPublication(TitleRecord titleRecord) {
         throw new UnsupportedOperationException();
     }
@@ -504,12 +489,12 @@ public class Facade {
 
     public Client searchClient(int id) {
         for (Client client : clients) {
-            if (client.getNumber() == id)
+            if (client.getNumber() == id) {
                 return client;
+            }
         }
         return null;
     }
-
 
     public String addReservation(String[] data1, String[] data2, int number, LocalDate dateStart, LocalDate dateEnd) {
         String result;
@@ -517,7 +502,7 @@ public class Facade {
         TitleRecord helpTitleRecord = factory.createTitleRecord(data1), titleRecord;
 
         titleRecord = this.searchTitleRecord(helpTitleRecord);
-        if (titleRecord != null)
+        if (titleRecord != null) {
             if (titleRecord.searchFreeRecord(dateStart, dateEnd)) {
                 Client helpClient = factory.createClient(data2), client;
 
@@ -526,10 +511,18 @@ public class Facade {
                     if (titleRecord.getFreeRecord(dateStart, dateEnd) != null) {
                         client.addReservation(titleRecord.getFreeRecord(dateStart, dateEnd), number, dateStart, dateEnd);
                         result = "reserved";
-                    } else result = "no free record";
-                } else result = "no such client";
-            } else result = "no such book";
-        else result = "no such title";
+                    } else {
+                        result = "no free record";
+                    }
+                } else {
+                    result = "no such client";
+                }
+            } else {
+                result = "no such book";
+            }
+        } else {
+            result = "no such title";
+        }
         return result;
     }
 
@@ -583,7 +576,6 @@ public class Facade {
         return result;
     }
 
-
     public String addRental(String[] data1, int number, float dayCost) {
         String result;
         Factory factory = new Factory();
@@ -593,7 +585,9 @@ public class Facade {
         client = this.searchClient(helpClient);
         if (client != null) {
             result = client.addRental(number, dayCost);
-        } else result = "no such client";
+        } else {
+            result = "no such client";
+        }
         return result;
     }
 
@@ -613,6 +607,23 @@ public class Facade {
     public int transformRecordIndexToNumber(int index) {
         TitleRecord help = new TitleRecord();
         return help.getRecordNumber(getRecordsList().get(index));
+    }
+
+    public String checkData(String[] data) {
+        String type = null;
+        if (data[4].isEmpty()) {
+            type = "2";
+        }
+        if (data[4].isEmpty() && data[3].isEmpty()) {
+            type = "1";
+        }
+        if (data[4].isEmpty() && data[3].isEmpty() && data[2].isEmpty()) {
+            type = "0";
+        }
+        if (type == null) {
+            type = "3";
+        }
+        return type;
     }
 
 }
