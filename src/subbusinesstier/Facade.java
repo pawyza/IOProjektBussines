@@ -254,7 +254,7 @@ public class Facade {
     public List<String[]> getTitleRecordStrings() {
         ArrayList<String[]> h = new ArrayList<>();
         for (TitleRecord titleRecord : titleRecords) {
-            h.add(new String[]{titleRecord.getId(), titleRecord.getAuthor(), titleRecord.getCast(), titleRecord.getGenre(), titleRecord.getTitle()});
+            h.add(new String[]{titleRecord.getId(), titleRecord.getTitle(), titleRecord.getAuthor(), titleRecord.getCast(), titleRecord.getGenre()});
         }
         return h;
     }
