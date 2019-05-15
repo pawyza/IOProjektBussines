@@ -179,7 +179,7 @@ public class Facade {
     public List<TitleRecord> getTitleRecords() {
         return titleRecords;
     }
-    
+   
     public List getTitleRecordsList() {
         System.out.println(titleRecords);
         return titleRecords;
@@ -235,7 +235,13 @@ public class Facade {
         }
         return reservation;
     }
-    
+     public List<String[]> getClientStrings(){
+       ArrayList<String[]> h = new ArrayList<>();
+       for(Client client: clients){
+           h.add(new String[]{client.getNumberCard(),client.getLogin(),String.valueOf(client.getNumber()),client.getPassword()});
+       }
+        return h;
+    }
     public List<Object[]> getClientsModel() {
         ArrayList<Object[]> clientsModel = new ArrayList<>();
         for (Client client : clients) {
