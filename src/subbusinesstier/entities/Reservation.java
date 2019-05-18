@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
+
 import subbusinesstier.Factory;
 
 /**
@@ -20,7 +22,21 @@ public class Reservation {
         private LocalDate dateEnd;
         private Rental rental;
 
-	public Record getRecord() {
+
+    public Reservation(int number, LocalDate dateStart, LocalDate dateEnd) {
+        this.number = number;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+    }
+
+    public Reservation(int number) {
+        this.number = number;
+    }
+
+    public Reservation() {
+    }
+
+    public Record getRecord() {
 		return this.record;
 	}
 
@@ -109,7 +125,10 @@ public class Reservation {
 
         @Override
 	public String toString() {
-		return " Number: " + getNumber()  + " Start date: " + getDateStart().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))  + " End date: " + getDateEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))  + " Number: " + getNumber();
+	    if (!(null == getDateStart())) {
+            return " Number: " + getNumber() + " Start date: " + getDateStart().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " End date: " + getDateEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " Number: " + getNumber();
+        }
+	    return "Number: "+getNumber();
 	}
         
         public String[] toString_() {

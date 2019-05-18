@@ -22,6 +22,34 @@ public class TitleRecord {
     private String genre;
     private String cast;
 
+    public TitleRecord(String id, String title, String author, String cast, String genre) {
+        this.title = title;
+        this.author = author;
+        this.id = id;
+        this.genre = genre;
+        this.cast = cast;
+    }
+
+    public TitleRecord(String id, String title) {
+        this.title = title;
+        this.id = id;
+    }
+
+    public TitleRecord(String id, String title, String author) {
+        this.title = title;
+        this.id = id;
+        this.author = author;
+    }
+
+    public TitleRecord(String id, String title, String author, String cast) {
+        this.title = title;
+        this.id = id;
+        this.author = author;
+        this.cast = cast;
+    }
+
+
+
 
     public String getTitle() {
         return this.title;
@@ -112,17 +140,17 @@ public class TitleRecord {
         }
         return null;
     }
-    
-        public Record searchRecord(int number) {
 
-        for(Record record : records){
-        if (record.getNumber() == number)
-            return record;
+    public Record searchRecord(int number) {
+
+        for (Record record : records) {
+            if (record.getNumber() == number)
+                return record;
         }
         return null;
     }
-        
-    public void deleteRecord(int number){
+
+    public void deleteRecord(int number) {
         Record record = searchRecord(number);
         records.remove(record);
     }
@@ -134,37 +162,37 @@ public class TitleRecord {
         Record record = null;
         for (int i = 0; i < records.size(); i++) {
             record = records.get(i);
-            if (record.isFree(dateStart,dateEnd))
+            if (record.isFree(dateStart, dateEnd))
                 return true;
         }
         return false;
     }
 
     public Record getFreeRecord(LocalDate dateStart, LocalDate dateEnd) {
-        for(Record record : records){
-            record.isFree(dateStart,dateEnd);
+        for (Record record : records) {
+            record.isFree(dateStart, dateEnd);
             return record;
         }
         return null;
     }
-    
+
     public String printRecords() {
         String result = "";
-        for(Record record : getRecords()){
+        for (Record record : getRecords()) {
             result += record.toString();
         }
         return result;
     }
-    
-        public ArrayList<String> getRecordsOfTitleList() {
+
+    public ArrayList<String> getRecordsOfTitleList() {
         ArrayList<String> recordsOfTitleList = new ArrayList<>();
         Iterator<Record> help = getRecords().iterator();
         while (help.hasNext()) {
             recordsOfTitleList.add(help.next().toString());
         }
         return recordsOfTitleList;
-        }
-    
+    }
+
     @Override
     public String toString() {
         String help = "\nTitle: " + getTitle();
@@ -193,19 +221,19 @@ public class TitleRecord {
         }
         return result;
     }
-    
-      public ArrayList<Object[]> getRecordsModel() {
+
+    public ArrayList<Object[]> getRecordsModel() {
         ArrayList<Object[]> recordsModel = new ArrayList<>();
         for (Record record : records) {
-                recordsModel.add(record._toString_());
-            }
+            recordsModel.add(record._toString_());
+        }
         return recordsModel;
     }
-      
-      public int getRecordNumber(Object object){
-          Record record = (Record) object;
-          return record.getNumber();
-      }
+
+    public int getRecordNumber(Object object) {
+        Record record = (Record) object;
+        return record.getNumber();
+    }
 
     @Override
     public int hashCode() {

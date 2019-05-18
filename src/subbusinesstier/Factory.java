@@ -3,6 +3,7 @@ package subbusinesstier;
 import subbusinesstier.entities.*;
 
 import java.time.LocalDate;
+import java.util.IllegalFormatCodePointException;
 
 /**
  * PU:
@@ -42,6 +43,8 @@ public class Factory {
                 titleRecord.setCast(data[4]);
                 titleRecord.setGenre(data[5]);
                 break;
+            default:
+                throw new IllegalFormatCodePointException(0);
         }
 
 

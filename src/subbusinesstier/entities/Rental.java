@@ -17,7 +17,15 @@ public class Rental {
 	private Reservation reservation;
         private float cost;
 
-        public Reservation getReservation() {
+    public Rental(Reservation reservation, float cost) {
+        this.reservation = reservation;
+        this.cost = cost;
+    }
+
+    public Rental() {
+    }
+
+    public Reservation getReservation() {
             return reservation;
         }
 

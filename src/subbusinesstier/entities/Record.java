@@ -14,6 +14,11 @@ public class Record {
     private TitleRecord titleRecord;
     private ArrayList<Reservation> reservations = new ArrayList();
 
+    public Record(int number) {
+        this.number = number;
+    }
+
+
     public int getNumber() {
         return this.number;
     }
@@ -39,7 +44,6 @@ public class Record {
     }
 
 
-
     public void setReservations(ArrayList reservations) {
         this.reservations = reservations;
     }
@@ -60,6 +64,7 @@ public class Record {
         return number;
     }
 
+
     @Override
     public String toString() {
         String help = titleRecord.toString();
@@ -77,13 +82,13 @@ public class Record {
 
     /**
      * @param date
-     * @return 
+     * @return
      */
-    public boolean isFree(LocalDate dateStart,LocalDate dateEnd) {
+    public boolean isFree(LocalDate dateStart, LocalDate dateEnd) {
         Reservation reservation;
         for (int i = 0; i < reservations.size(); i++) {
             reservation = reservations.get(i);
-            if(!reservation.isFree(dateStart,dateEnd)){
+            if (!reservation.isFree(dateStart, dateEnd)) {
                 return false;
             }
         }

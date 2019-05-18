@@ -18,6 +18,8 @@ public class Client {
     private int number = 0;
     private String password;
 
+
+
     public String getPassword() {
         return password;
     }
