@@ -127,6 +127,7 @@ public class TitleRecord {
             newRecord.setTitleRecord(this);
             return getRecordsModel();
         }
+      
         return null;
     }
 
@@ -138,6 +139,7 @@ public class TitleRecord {
         if ((index = records.indexOf(record)) != -1) {
             return (Record) records.get(index);
         }
+         
         return null;
     }
 

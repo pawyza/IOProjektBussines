@@ -29,9 +29,9 @@ public class Data {
             {"9", "ID6", "Title6", "Author5", "Cast3", "Genre4"}};
 
     public TitleRecord[] titleRecords = {
-            new TitleRecord("ID1", "Title1"),
-            new TitleRecord("ID2", "Title2", "Author1"),
-            new TitleRecord("ID3", "Title3", "Author2"),
+           new TitleRecord("ID1", "Title1"),
+           new TitleRecord("ID2", "Title2", "Author1"),
+           new TitleRecord("ID3", "Title3", "Author2"),
             new TitleRecord("ID4", "Title4", "Author3", "Cast1", "Genre1"),
             new TitleRecord("ID5", "Title5", "Author4", "Cast2", "Genre2"),
             new TitleRecord("ID6", "Title6", "Author5", "Cast3", "Genre4")
@@ -98,4 +98,7 @@ public class Data {
 
 
     public static int number = 0;
+    
+   
+     
 }
