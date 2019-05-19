@@ -1,28 +1,54 @@
 package subbusinesstier.entities;
 
-import subbusinesstier.Facade;
 import subbusinesstier.Factory;
 
-import java.awt.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
+import static javax.persistence.CascadeType.ALL;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * PU:
  * Dodaj_tytu�_nagrania, Wyszukaj_tytu�_nagrania, Operacje_na_nagraniach, Dodawanie_nagrania, Modyfikacja_nagrania, Wyszukaj_nagrania, Usuwanie_nagrania, Publikuj, Wy�lij_komunikat
  */
-public class TitleRecord {
-
-    private List<Record> records;
+@Entity
+public class TitleRecord implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    //private List<Record> records;
     private String title;
     private String author;
-    private String id;
-    private Record record;
+    //private String id;
+    //private Record record;
     private String genre;
     private String cast;
-
-    public TitleRecord(String id, String title, String author, String cast, String genre) {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    @OneToMany(mappedBy = "titleRecord", cascade = ALL)
+    private List<Record> records;
+    public List<Record> getRecords(){
+        return records;
+    }           
+    public void setRecords(List<Record> records){
+        this.records = records;
+    }           
+    
+    public TitleRecord(Long id, String title, String author, String cast, String genre) {
         this.title = title;
         this.author = author;
         this.id = id;
@@ -30,27 +56,24 @@ public class TitleRecord {
         this.cast = cast;
     }
 
-    public TitleRecord(String id, String title) {
+    public TitleRecord(Long id, String title) {
         this.title = title;
         this.id = id;
     }
 
-    public TitleRecord(String id, String title, String author) {
+    public TitleRecord(Long id, String title, String author) {
         this.title = title;
         this.id = id;
         this.author = author;
     }
 
-    public TitleRecord(String id, String title, String author, String cast) {
+    public TitleRecord(Long id, String title, String author, String cast) {
         this.title = title;
         this.id = id;
         this.author = author;
         this.cast = cast;
     }
-
-
-
-
+    
     public String getTitle() {
         return this.title;
     }
@@ -67,6 +90,7 @@ public class TitleRecord {
         this.author = author;
     }
 
+/*
     public String getId() {
         return this.id;
     }
@@ -74,7 +98,7 @@ public class TitleRecord {
     public void setId(String id) {
         this.id = id;
     }
-
+    
     public Record getRecord(LocalDate date) {
         return this.record;
     }
@@ -82,7 +106,7 @@ public class TitleRecord {
     public void setRecord(Record record) {
         this.record = record;
     }
-
+*/
     public String getGenre() {
         return this.genre;
     }
@@ -102,19 +126,7 @@ public class TitleRecord {
     public TitleRecord() {
         records = new ArrayList<>();
     }
-
-
-    public List<Record> getRecords() {
-        return records;
-    }
-
-    /**
-     * @param records
-     */
-    public void setRecords(List<Record> records) {
-        this.records = records;
-    }
-
+    
     /**
      * @param data
      */
@@ -141,16 +153,16 @@ public class TitleRecord {
         return null;
     }
 
-    public Record searchRecord(int number) {
+    public Record searchRecord(Long number) {
 
         for (Record record : records) {
-            if (record.getNumber() == number)
+            if (record.getId().equals(number))
                 return record;
         }
         return null;
     }
 
-    public void deleteRecord(int number) {
+    public void deleteRecord(Long number) {
         Record record = searchRecord(number);
         records.remove(record);
     }
@@ -193,6 +205,14 @@ public class TitleRecord {
         return recordsOfTitleList;
     }
 
+    public List<String[]> getRecordStrings() {
+        ArrayList<String[]> h = new ArrayList<>();
+        for (Record record : getRecords()) {
+            h.add(new String[]{record.getId().toString(), record.getTitleRecord().getTitle()});
+        }
+        return h;
+    }
+    
     @Override
     public String toString() {
         String help = "\nTitle: " + getTitle();
@@ -204,7 +224,7 @@ public class TitleRecord {
 
     public String[] toString_() {
         String help[] = new String[5];
-        help[0] = getId();
+        help[0] = getId().toString();
         help[1] = getTitle();
         help[2] = getAuthor();
         help[3] = getCast();
@@ -232,7 +252,7 @@ public class TitleRecord {
 
     public int getRecordNumber(Object object) {
         Record record = (Record) object;
-        return record.getNumber();
+        return record.getId().intValue();
     }
 
     @Override

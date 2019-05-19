@@ -19,25 +19,25 @@ public class Factory {
         switch (Integer.parseInt(data[0])) {
             case 0:
                 titleRecord = new TitleRecord();
-                titleRecord.setId(data[1]);
+                titleRecord.setId(Long.valueOf(data[1]));
                 titleRecord.setTitle(data[2]);
                 break;
             case 1:
                 titleRecord = new TitleRecord();
-                titleRecord.setId(data[1]);
+                titleRecord.setId(Long.valueOf(data[1]));
                 titleRecord.setTitle(data[2]);
                 titleRecord.setAuthor(data[3]);
                 break;
             case 2:
                 titleRecord = new TitleRecord();
-                titleRecord.setId(data[1]);
+                titleRecord.setId(Long.valueOf(data[1]));
                 titleRecord.setTitle(data[2]);
                 titleRecord.setAuthor(data[3]);
                 titleRecord.setCast(data[4]);
                 break;
             case 3:
                 titleRecord = new TitleRecord();
-                titleRecord.setId(data[1]);
+                titleRecord.setId(Long.valueOf(data[1]));
                 titleRecord.setTitle(data[2]);
                 titleRecord.setAuthor(data[3]);
                 titleRecord.setCast(data[4]);
@@ -63,7 +63,7 @@ public class Factory {
         {
             case 0:
                 record = new Record();
-                record.setNumber(Integer.parseInt(data[1]));
+                record.setId(Long.valueOf(data[1]));
                 break;
         }
         return record;
@@ -77,7 +77,7 @@ public class Factory {
         client = new Client();
         client.setNumberCard(data[0]);
         client.setLogin(data[1]);
-        client.setNumber(Integer.parseInt(data[2]));
+        client.setId(Long.valueOf(data[2]));
         client.setPassword(data[3]);
         return client;
     }
@@ -92,7 +92,7 @@ public class Factory {
         
         Reservation reservation = null;
         reservation = new Reservation();
-        reservation.setNumber(number);
+        reservation.setId(Long.valueOf(number));
         return reservation;
     }
 

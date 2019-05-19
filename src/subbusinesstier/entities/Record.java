@@ -3,22 +3,45 @@ package subbusinesstier.entities;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 /**
  * PU:
  * Dodaj_tytu�_nagrania, Wyszukaj_tytu�_nagrania, Operacje_na_nagraniach, Dodawanie_nagrania, Modyfikacja_nagrania, Wyszukaj_nagrania, Usuwanie_nagrania, Publikuj, Wy�lij_komunikat, Rezerwacja_nagrania,Zwrot_nagrania, Odebranie_nagrania
  */
+@Entity
 public class Record {
 
-    private int number;
-    private TitleRecord titleRecord;
-    private ArrayList<Reservation> reservations = new ArrayList();
+    //private int number;
+    //private TitleRecord titleRecord;
+    //private List<Reservation> reservations;
 
-    public Record(int number) {
-        this.number = number;
+    @Transient
+    private List<Reservation> reservations = new ArrayList<>();
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    public Long getId() {
+        return id;
     }
-
-
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    @ManyToOne
+    private TitleRecord titleRecord;
+    
+    public Record(long id) {
+        this.id = id;
+    }
+    
+/*
     public int getNumber() {
         return this.number;
     }
@@ -26,7 +49,7 @@ public class Record {
     public void setNumber(int number) {
         this.number = number;
     }
-
+*/
     public TitleRecord getTitleRecord() {
 
         return this.titleRecord;
@@ -56,19 +79,19 @@ public class Record {
 
         Record record = (Record) o;
 
-        return number == record.getNumber();
+        return id.equals(record.getId());
     }
 
     @Override
     public int hashCode() {
-        return number;
+        return id.intValue();
     }
 
 
     @Override
     public String toString() {
         String help = titleRecord.toString();
-        help += " Number: " + getNumber();
+        help += " Id: " + getId().toString();
         return help;
     }
 
@@ -97,7 +120,7 @@ public class Record {
 
     public String[] _toString_() {
         String help[] = new String[4];
-        help[0] = String.valueOf(getNumber());
+        help[0] = String.valueOf(getId());
         help[1] = getTitleRecord().toString();
         return help;
 

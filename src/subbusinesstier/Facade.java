@@ -1,8 +1,6 @@
 package subbusinesstier;
 
 import subbusinesstier.entities.Client;
-import subbusinesstier.entities.Record;
-import subbusinesstier.entities.Reservation;
 import subbusinesstier.entities.TitleRecord;
 
 import java.lang.reflect.Array;
@@ -38,12 +36,12 @@ public class Facade {
         Facade ap = new Facade();
 
         System.out.println("Test dodawania nagran 'tytulowych'");
-        String[] titleRecord1 = {"0", "ID1", "Title1"};
-        String[] titleRecord2 = {"1", "ID2", "Title2", "Author1"};
-        String[] titleRecord3 = {"1", "ID3", "Title3", "Author2"};
-        String[] titleRecord4 = {"3", "ID4", "Title4", "Author3", "Cast1", "Genre1"};
-        String[] titleRecord5 = {"3", "ID5", "Title5", "Author4", "Cast2", "Genre2"};
-        String[] titleRecord6 = {"3", "ID6", "Title6", "Author5", "Cast3", "Genre4"};
+        String[] titleRecord1 = {"0", "1", "Title1"};
+        String[] titleRecord2 = {"1", "2", "Title2", "Author1"};
+        String[] titleRecord3 = {"1", "3", "Title3", "Author2"};
+        String[] titleRecord4 = {"3", "4", "Title4", "Author3", "Cast1", "Genre1"};
+        String[] titleRecord5 = {"3", "5", "Title5", "Author4", "Cast2", "Genre2"};
+        String[] titleRecord6 = {"3", "6", "Title6", "Author5", "Cast3", "Genre4"};
         ap.addTitleRecord(titleRecord1);
         ap.addTitleRecord(titleRecord2);
         ap.addTitleRecord(titleRecord2);
@@ -241,7 +239,7 @@ public class Facade {
     public List<String[]> getClientStrings() {
         ArrayList<String[]> h = new ArrayList<>();
         for (Client client : clients) {
-            h.add(new String[]{client.getNumberCard(), client.getLogin(), String.valueOf(client.getNumber()), client.getPassword()});
+            h.add(new String[]{client.getNumberCard(), client.getLogin(), client.getId().toString(), client.getPassword()});
         }
         return h;
     }
@@ -249,7 +247,7 @@ public class Facade {
     public List<String[]> getTitleRecordStrings() {
         ArrayList<String[]> h = new ArrayList<>();
         for (TitleRecord titleRecord : titleRecords) {
-            h.add(new String[]{titleRecord.getId(), titleRecord.getTitle(), titleRecord.getAuthor(), titleRecord.getCast(), titleRecord.getGenre()});
+            h.add(new String[]{titleRecord.getId().toString(), titleRecord.getTitle(), titleRecord.getAuthor(), titleRecord.getCast(), titleRecord.getGenre()});
         }
         return h;
     }
@@ -257,10 +255,7 @@ public class Facade {
     public List<String[]> getRecordStrings() {
         ArrayList<String[]> h = new ArrayList<>();
         for (TitleRecord titleRecord : titleRecords) {
-            for (Record record : titleRecord.getRecords()) {
-                h.add(new String[]{String.valueOf(record.getNumber()), record.getTitleRecord().getTitle()});
-            }
-
+            h.addAll(titleRecord.getRecordStrings());
         }
         return h;
     }
@@ -269,10 +264,7 @@ public class Facade {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         ArrayList<String[]> h = new ArrayList<>();
         for (Client client : clients) {
-            for (Reservation reservation : client.getReservations()) {
-                h.add(new String[]{String.valueOf(reservation.getNumber()), reservation.getDateStart().format(formatter), reservation.getDateEnd().format(formatter)});
-            }
-
+            h.addAll(client.getReservationStrings());
         }
         return h;
     }
@@ -305,7 +297,7 @@ public class Facade {
 
     public Client searchClientOfReservation(int number) {
         for (Client client : clients) {
-            if (client.searchReservation(number) != null) {
+            if (client.searchReservation(new Long(number)) != null) {
                 return client;
             }
         }
@@ -314,7 +306,7 @@ public class Facade {
 
     public String searchClientsInfoOfReservation(int number) {
         for (Client client : clients) {
-            if (client.searchReservation(number) != null) {
+            if (client.searchReservation(new Long(number)) != null) {
                 return client.toString();
             }
         }
@@ -361,13 +353,13 @@ public class Facade {
     public void deleteRecord(int number) {
         TitleRecord titleRecord = searchTitleRecordOfRecord(number);
         if (titleRecord != null) {
-            titleRecord.deleteRecord(number);
+            titleRecord.deleteRecord(new Long(number));
         }
     }
 
     public TitleRecord searchTitleRecordOfRecord(int number) {
         for (TitleRecord titleRecord : titleRecords) {
-            if (titleRecord.searchRecord(number) != null) {
+            if (titleRecord.searchRecord(new Long(number)) != null) {
                 return titleRecord;
             }
         }
@@ -397,7 +389,7 @@ public class Facade {
 
     public String[] transformTittleRecordToString(int index) {
         TitleRecord titleRecord = (TitleRecord) getTitleRecords().toArray()[index];
-        String id = titleRecord.getId();
+        String id = titleRecord.getId().toString();
         String author = titleRecord.getAuthor();
         String cast = titleRecord.getCast();
         String genre = titleRecord.getGenre();
@@ -489,7 +481,7 @@ public class Facade {
 
     public Client searchClient(int id) {
         for (Client client : clients) {
-            if (client.getNumber() == id) {
+            if (client.getId().equals(new Long(id))) {
                 return client;
             }
         }
@@ -592,16 +584,16 @@ public class Facade {
     }
 
     public int transformClientIndexToNumber(int index) {
-        return getClients().get(index).getNumber();
+        return getClients().get(index).getId().intValue();
     }
 
     public String transformTitleRecordIndexToString(int index) {
-        return getTitleRecords().get(index).getId();
+        return getTitleRecords().get(index).getId().toString();
     }
 
     public int transformReservationIndexToNumber(int index) {
         Client help = new Client();
-        return help.getReservationNumber(getReservationList().get(index));
+        return help.getReservationNumber(getReservationList().get(index)).intValue();
     }
 
     public int transformRecordIndexToNumber(int index) {
