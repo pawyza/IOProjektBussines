@@ -40,7 +40,7 @@ public class Client implements Serializable{
         this.id = id;
     }
     
-    @OneToMany(mappedBy = "client", cascade = ALL)
+    @OneToMany(mappedBy = "client")
     private List<Reservation> reservations = new ArrayList<>();
     public List<Reservation> getReservations(){
         return reservations;
@@ -158,9 +158,14 @@ public class Client implements Serializable{
         return null;
     }
     
-    public void deleteReservation(int number){
+    public Long deleteReservation(int number){
         Reservation reservation = searchReservation(new Long(number));
-        reservations.remove(reservation);
+        if(reservation != null){
+            Long idDel = reservation.getId();
+            reservations.remove(reservation);
+            return idDel;
+        }
+        return null;
     }
       
       public Long getReservationNumber(Object object){

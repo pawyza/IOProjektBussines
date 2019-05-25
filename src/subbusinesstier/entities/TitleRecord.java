@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
-import static javax.persistence.CascadeType.ALL;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,7 +39,7 @@ public class TitleRecord implements Serializable {
         this.id = id;
     }
     
-    @OneToMany(mappedBy = "titleRecord", cascade = ALL)
+    @OneToMany(mappedBy = "titleRecord")
     private List<Record> records;
     public List<Record> getRecords(){
         return records;
@@ -162,9 +162,14 @@ public class TitleRecord implements Serializable {
         return null;
     }
 
-    public void deleteRecord(Long number) {
-        Record record = searchRecord(number);
-        records.remove(record);
+    public Long deleteRecord(int number) {
+        Record record = searchRecord(new Long(number));
+        if(record != null){
+            Long idDel = record.getId();
+            records.remove(record);
+            return idDel;
+        }
+        return null;
     }
 
     /**

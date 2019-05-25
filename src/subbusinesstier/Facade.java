@@ -285,14 +285,24 @@ public class Facade {
         return clientsModelString;
     }
 
-    public void deleteClient(int number) {
+    public Long deleteClient(int number) {
         Client client = searchClient(number);
-        clients.remove(client);
+        if(client != null){
+            Long idDel = client.getId();
+            clients.remove(client);
+            return idDel;
+        }
+        return null;
     }
 
-    public void deleteTitleRecord(String id) {
+    public Long deleteTitleRecord(String id) {
         TitleRecord titleRecord = searchTitleRecod(id);
-        titleRecords.remove(titleRecord);
+        if(titleRecord != null){
+            Long idDel = titleRecord.getId();
+            titleRecords.remove(titleRecord);
+            return idDel;
+        }
+        return null;
     }
 
     public Client searchClientOfReservation(int number) {
@@ -343,18 +353,20 @@ public class Facade {
         return recordsModelString;
     }
 
-    public void deleteReservation(int number) {
+    public Long deleteReservation(int number) {
         Client client = searchClientOfReservation(number);
         if (client != null) {
-            client.deleteReservation(number);
+            return client.deleteReservation(number);
         }
+        return null;
     }
 
-    public void deleteRecord(int number) {
+    public Long deleteRecord(int number) {
         TitleRecord titleRecord = searchTitleRecordOfRecord(number);
         if (titleRecord != null) {
-            titleRecord.deleteRecord(new Long(number));
+            return titleRecord.deleteRecord(number);
         }
+        return null;
     }
 
     public TitleRecord searchTitleRecordOfRecord(int number) {
@@ -473,7 +485,6 @@ public class Facade {
         int idx;
         idx = clients.indexOf(client);
         if (idx != -1) {
-
             return clients.get(idx);
         }
         return null;
