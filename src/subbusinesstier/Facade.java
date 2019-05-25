@@ -144,7 +144,7 @@ public class Facade {
         System.out.println(lan);
 
         System.out.println("\n Test usuwania titleRecord");
-        ap.deleteTitleRecord("ID1");
+        ap.deleteTitleRecord(1);
 
         lan = ap.getTitleRecords().toString();
         System.out.println(lan);
@@ -295,8 +295,8 @@ public class Facade {
         return null;
     }
 
-    public Long deleteTitleRecord(String id) {
-        TitleRecord titleRecord = searchTitleRecod(id);
+    public Long deleteTitleRecord(int id) {
+        TitleRecord titleRecord = searchTitleRecord(id);
         if(titleRecord != null){
             Long idDel = titleRecord.getId();
             titleRecords.remove(titleRecord);
@@ -440,9 +440,9 @@ public class Facade {
         return null;
     }
 
-    public TitleRecord searchTitleRecod(String id) {
+    public TitleRecord searchTitleRecord(int id) {
         for (TitleRecord titleRecord : titleRecords) {
-            if (titleRecord.getId().equals(id)) {
+            if (titleRecord.getId().equals(new Long(id))) {
                 return titleRecord;
             }
         }
@@ -597,11 +597,11 @@ public class Facade {
     public int transformClientIndexToNumber(int index) {
         return getClients().get(index).getId().intValue();
     }
-
-    public String transformTitleRecordIndexToString(int index) {
-        return getTitleRecords().get(index).getId().toString();
+    
+    public int transformTitleRecordIndexToString(int index) {
+        return getTitleRecords().get(index).getId().intValue();
     }
-
+    
     public int transformReservationIndexToNumber(int index) {
         Client help = new Client();
         return help.getReservationNumber(getReservationList().get(index)).intValue();

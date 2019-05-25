@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
+import static javax.persistence.CascadeType.ALL;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class TitleRecord implements Serializable {
         this.id = id;
     }
     
-    @OneToMany(mappedBy = "titleRecord")
+    @OneToMany(mappedBy = "titleRecord", cascade = ALL)
     private List<Record> records;
     public List<Record> getRecords(){
         return records;

@@ -40,7 +40,7 @@ public class Client implements Serializable{
         this.id = id;
     }
     
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = ALL)
     private List<Reservation> reservations = new ArrayList<>();
     public List<Reservation> getReservations(){
         return reservations;

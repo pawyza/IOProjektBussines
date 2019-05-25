@@ -38,7 +38,7 @@ public class Reservation implements Serializable {
     @ManyToOne
     private Record record;
     
-    @OneToOne(mappedBy = "reservation", cascade = ALL)
+    @Transient
     private Rental rental;
     
     @Id
