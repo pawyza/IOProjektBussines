@@ -6,18 +6,14 @@
 package subbusinesstier.entities;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.FixMethodOrder;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized;
 import subbusinesstier.Test_Entity;
 
@@ -57,29 +53,19 @@ public class TitleRecordTest {
         return Arrays.asList(data1);
     }
 
-// @Test
-// public void testAddBook() {
-// System.out.println("addBook");
-// for (int i = 0; i < data.bookdata.length; i++) {
-// title.addBook(data.bookdata[i]);
-// assertEquals(data.books[i], title.getBooks().get(i)); } //k1.3
-// for (int i = 0; i < data.bookdata.length; i++) {
-// data.titles[0].addBook(data.bookdata[i]);
-// assertEquals(title.getBooks().size(), data.bookdata.length); } // k1.5- badanie spójnosci danych
-// }
     @Test
     public void testAddRecord() {
         System.out.println("addRecord");
         for (int i = 0; i < data.recordsData.length; i++) {
-            System.out.println("TR : " + titleRecord);
-            System.out.println("DATA: " + Arrays.toString(data.recordsData[i]));
             titleRecord.addRecord(data.recordsData[i]);
             assertEquals(data.records[i], titleRecord.getRecords().get(i));
         }
+        /*
         for (int i = 0; i < data.titleRecordData.length; i++) {
             data.titleRecords[0].addRecord(data.recordsData[i]);
             assertEquals(titleRecord.getRecords().size(), data.titleRecords.length);
         }
+*/
     }
 
     @Test
@@ -118,7 +104,7 @@ public class TitleRecordTest {
     public void testSearchFreeTitle() {
         System.out.println("searchFreeTitle");
         for (int i = 0; i < data.recordsData.length; i++) {
-            titleRecord.getRecords().get(i).setReservations((ArrayList) data.reservationList);
+            titleRecord.getRecords().get(i).addReservation(data.reservationList.get(i));
         }
         boolean result = titleRecord.searchFreeRecord(data.dates[1], LocalDate.MIN);
         assertTrue(result);

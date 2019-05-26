@@ -23,6 +23,7 @@ public class TitleRecord {
     private String cast;
 
     public TitleRecord(String id, String title, String author, String cast, String genre) {
+        records = new ArrayList();
         this.title = title;
         this.author = author;
         this.id = id;
@@ -31,17 +32,20 @@ public class TitleRecord {
     }
 
     public TitleRecord(String id, String title) {
+         records = new ArrayList();
         this.title = title;
         this.id = id;
     }
 
     public TitleRecord(String id, String title, String author) {
+         records = new ArrayList();
         this.title = title;
         this.id = id;
         this.author = author;
     }
 
     public TitleRecord(String id, String title, String author, String cast) {
+         records = new ArrayList();
         this.title = title;
         this.id = id;
         this.author = author;

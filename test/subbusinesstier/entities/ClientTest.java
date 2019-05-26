@@ -5,9 +5,6 @@
  */
 package subbusinesstier.entities;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,8 +12,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runners.Parameterized;
-import static subbusinesstier.entities.RecordTest.data;
-import static subbusinesstier.entities.RecordTest.record;
 import testdata.Data;
 
 /**

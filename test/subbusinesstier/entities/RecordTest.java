@@ -2,11 +2,9 @@ package subbusinesstier.entities;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized;
 import subbusinesstier.Test_Entity;
 import testdata.Data;
