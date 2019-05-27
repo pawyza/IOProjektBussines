@@ -1,6 +1,5 @@
 package subbusinesstier.entities;
 
-import com.sun.javafx.beans.IDProperty;
 import java.io.Serializable;
 import subbusinesstier.Factory;
 
@@ -8,13 +7,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  * PU:
@@ -39,8 +36,8 @@ public class Client implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
-    
-    @OneToMany(mappedBy = "client", cascade = ALL)
+    @Transient
+   // @OneToMany(mappedBy = "client", cascade = ALL)
     private List<Reservation> reservations = new ArrayList<>();
     public List<Reservation> getReservations(){
         return reservations;
