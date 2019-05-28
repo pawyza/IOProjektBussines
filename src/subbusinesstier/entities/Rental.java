@@ -21,7 +21,6 @@ import javax.persistence.OneToOne;
 public class Rental {
  
     private static final long serialVersionUID=1L;
-    //private Reservation reservation;
     private float cost;
 
     public Rental(Reservation reservation, float cost) {
@@ -49,42 +48,42 @@ public class Rental {
             return reservation;
         }
 
-	/**
-	 * 
-	 * @param reservation
-	 */
-        public void setReservation(Reservation reservation) {
-            this.reservation = reservation;
+    /**
+     * 
+     * @param reservation
+     */
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
+    public float getCost() {
+        return cost;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
+    @Override
+    public int hashCode() {
+            return Integer.valueOf(getReservation().getId().intValue() + String.valueOf(getCost()));
+    }
+
+    /**
+     * 
+     * @param obj
+     */
+    @Override
+    public boolean equals(Object o) {
+        boolean result = false;
+        if (getReservation().getId().equals(((Rental) o).getReservation().getId()))
+            if (getCost() == (((Rental) o).getCost())) {
+            result = true;
         }
+        return result;
+    }
 
-        public float getCost() {
-            return cost;
-        }
-
-        public void setCost(float cost) {
-            this.cost = cost;
-        }
-        @Override
-	public int hashCode() {
-                return Integer.valueOf(getReservation().getId().intValue() + String.valueOf(getCost()));
-	}
-
-	/**
-	 * 
-	 * @param obj
-	 */
-        @Override
-	public boolean equals(Object o) {
-            boolean result = false;
-            if (getReservation().getId().equals(((Rental) o).getReservation().getId()))
-                if (getCost() == (((Rental) o).getCost())) {
-                result = true;
-            }
-            return result;
-	}
-
-        @Override
-	public String toString() {
-		return reservation.toString() + " Cost: " + String.valueOf(getCost());
-	}  
+    @Override
+    public String toString() {
+            return reservation.toString() + " Cost: " + String.valueOf(getCost());
+    }  
 }

@@ -22,13 +22,10 @@ import javax.persistence.OneToMany;
 public class TitleRecord implements Serializable {
     
     private static final long serialVersionUID = 1L;
-    //private List<Record> records;
     private String title;
     private String author;
-    //private String id;
-    //private Record record;
     private String genre;
-    private String cast;
+    private String recCast;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -54,7 +51,7 @@ public class TitleRecord implements Serializable {
         this.author = author;
         this.id = id;
         this.genre = genre;
-        this.cast = cast;
+        this.recCast = cast;
     }
 
     public TitleRecord(Long id, String title) {
@@ -72,7 +69,7 @@ public class TitleRecord implements Serializable {
         this.title = title;
         this.id = id;
         this.author = author;
-        this.cast = cast;
+        this.recCast = cast;
     }
     
     public String getTitle() {
@@ -91,23 +88,6 @@ public class TitleRecord implements Serializable {
         this.author = author;
     }
 
-/*
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-    
-    public Record getRecord(LocalDate date) {
-        return this.record;
-    }
-
-    public void setRecord(Record record) {
-        this.record = record;
-    }
-*/
     public String getGenre() {
         return this.genre;
     }
@@ -117,11 +97,11 @@ public class TitleRecord implements Serializable {
     }
 
     public String getCast() {
-        return this.cast;
+        return this.recCast;
     }
 
     public void setCast(String cast) {
-        this.cast = cast;
+        this.recCast = cast;
     }
 
     public TitleRecord() {

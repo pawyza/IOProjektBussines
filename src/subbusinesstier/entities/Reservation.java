@@ -26,19 +26,15 @@ import subbusinesstier.Factory;
 public class Reservation implements Serializable {
         
     private static final long serialVersionUID=1L;
-    //private Record record;
-    //private Client client;
-    //private int number;
     private LocalDate dateStart;
     private LocalDate dateEnd;
-    //private Rental rental;
 
     @ManyToOne
     private Client client;
     @ManyToOne
     private Record record;
     
-    @Transient
+    //@Transient
     private Rental rental;
     
     @Id
@@ -69,97 +65,97 @@ public class Reservation implements Serializable {
 		return this.record;
 	}
 
-	public void setRecord(Record record) {
-		this.record = record;
-	}
+    public void setRecord(Record record) {
+            this.record = record;
+    }
 
-	public Client getClient() {
-		return this.client;
-	}
+    public Client getClient() {
+            return this.client;
+    }
 
-	public void setClient(Client client) {
-		this.client = client;
-	}
+    public void setClient(Client client) {
+            this.client = client;
+    }
 
-        public LocalDate getDateStart() {
-            return dateStart;
+    public LocalDate getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(LocalDate dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public LocalDate getDateEnd() {
+        return dateEnd;
+    }   
+
+    public void setDateEnd(LocalDate dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public Rental getRental() {
+        return rental;
+    }
+
+    public void setRental(Rental rental) {
+        this.rental = rental;
+    }
+
+    public String addRental(Reservation reservation, float dayCost){
+    Factory factory = new Factory();
+    Rental newRental;
+    float cost = (float) dateStart.until(dateEnd, ChronoUnit.DAYS) * dayCost;
+    newRental = factory.creatRental(reservation ,cost);
+    rental = newRental;
+    return newRental.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return id.intValue();
+    }
+
+    /**
+     * 
+     * @param o
+     */
+    @Override
+    public boolean equals(Object o) {
+        boolean result = false;
+        if (getId().equals(((Reservation) o).getId())) {
+            result = true;
         }
+        return result;
+    }
 
-        public void setDateStart(LocalDate dateStart) {
-            this.dateStart = dateStart;
+    /**
+     * 
+     * @param date
+     */
+    public boolean isFree(LocalDate dateStart, LocalDate dateEnd) {
+        if (this.dateStart.isAfter(dateEnd) || this.dateEnd.isBefore(dateStart)) {
+            if (rental == null) {
+            return true; }
         }
+        return false; 
+    }
 
-        public LocalDate getDateEnd() {
-            return dateEnd;
-        }   
+    @Override
+    public String toString() {
+        if (!(null == getDateStart())) {
+        return "Id: " + getId().toString() + " Start date: " + getDateStart().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " End date: " + getDateEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    }
+        return "Id: "+getId().toString();
+    }
 
-        public void setDateEnd(LocalDate dateEnd) {
-            this.dateEnd = dateEnd;
-        }
-
-        public Rental getRental() {
-            return rental;
-        }
-
-        public void setRental(Rental rental) {
-            this.rental = rental;
-        }
-        
-        public String addRental(Reservation reservation, float dayCost){
-        Factory factory = new Factory();
-        Rental newRental;
-        float cost = (float) dateStart.until(dateEnd, ChronoUnit.DAYS) * dayCost;
-        newRental = factory.creatRental(reservation ,cost);
-        rental = newRental;
-        return newRental.toString();
-        }
-        
-        @Override
-	public int hashCode() {
-            return id.intValue();
-	}
-
-	/**
-	 * 
-	 * @param o
-	 */
-        @Override
-	public boolean equals(Object o) {
-            boolean result = false;
-            if (getId().equals(((Reservation) o).getId())) {
-                result = true;
-            }
-            return result;
-	}
-      
-	/**
-	 * 
-	 * @param date
-	 */
-	public boolean isFree(LocalDate dateStart, LocalDate dateEnd) {
-            if (this.dateStart.isAfter(dateEnd) || this.dateEnd.isBefore(dateStart)) {
-                if (rental == null) {
-                return true; }
-            }
-            return false; 
-	}
-
-        @Override
-	public String toString() {
-	    if (!(null == getDateStart())) {
-            return "Id: " + getId().toString() + " Start date: " + getDateStart().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " End date: " + getDateEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        }
-	    return "Id: "+getId().toString();
-	}
-        
-        public String[] toString_() {
-            String help[] = new String[4];
-            help[0] = getId().toString();
-            help[1] = getClient().toString();
-            help[2] = getRecord().toString();
-            help[3] = getDateStart().toString();
-            help[4] = getDateEnd().toString();
-            help[5] = getRental().toString();
-            return help;
+    public String[] toString_() {
+        String help[] = new String[4];
+        help[0] = getId().toString();
+        help[1] = getClient().toString();
+        help[2] = getRecord().toString();
+        help[3] = getDateStart().toString();
+        help[4] = getDateEnd().toString();
+        help[5] = getRental().toString();
+        return help;
     }
 }

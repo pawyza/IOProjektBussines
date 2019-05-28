@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 /**
@@ -16,13 +17,8 @@ import javax.persistence.Transient;
  */
 @Entity
 public class Record {
-
-    //private int number;
-    //private TitleRecord titleRecord;
-    //private List<Reservation> reservations;
-
-    @Transient
-    private List<Reservation> reservations = new ArrayList<>();
+    
+    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,19 +33,13 @@ public class Record {
     @ManyToOne
     private TitleRecord titleRecord;
     
+    @Transient
+    private List<Reservation> reservations = new ArrayList<>();
+    
     public Record(long id) {
         this.id = id;
     }
     
-/*
-    public int getNumber() {
-        return this.number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-*/
     public TitleRecord getTitleRecord() {
 
         return this.titleRecord;
