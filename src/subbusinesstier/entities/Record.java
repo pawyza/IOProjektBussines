@@ -16,6 +16,7 @@ public class Record {
 
     public Record(int number) {
         this.number = number;
+        this.titleRecord = new TitleRecord();
     }
 
 
