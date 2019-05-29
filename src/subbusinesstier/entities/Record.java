@@ -64,6 +64,7 @@ public class Record {
     }
 
     public Record() {
+        
     }
 
     public List<Reservation> getReservations() {

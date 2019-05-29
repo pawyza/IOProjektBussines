@@ -12,29 +12,29 @@ public class Data {
 
 
     public String[][] titleRecordData = {
-            {"0", "ID1", "Title1"},
-            {"1", "ID2", "Title2", "Author1"},
-            {"1", "ID3", "Title3", "Author2"},
-            {"3", "ID4", "Title4", "Author3", "Cast1", "Genre1"},
-            {"3", "ID5", "Title5", "Author4", "Cast2", "Genre2"},
-            {"3", "ID6", "Title6", "Author5", "Cast3", "Genre4"}};
+            {"0", "1", "Title1"},
+            {"1", "2", "Title2", "Author1"},
+            {"1", "3", "Title3", "Author2"},
+            {"3", "4", "Title4", "Author3", "Cast1", "Genre1"},
+            {"3", "5", "Title5", "Author4", "Cast2", "Genre2"},
+            {"3", "6", "Title6", "Author5", "Cast3", "Genre4"}};
 
 
     public String[][] titleRecordWrongCategoryData = {
-            {"4", "ID1", "Title1"},
-            {"5", "ID2", "Title2", "Author1"},
-            {"6", "ID3", "Title3", "Author2"},
-            {"7", "ID4", "Title4", "Author3", "Cast1", "Genre1"},
-            {"8", "ID5", "Title5", "Author4", "Cast2", "Genre2"},
-            {"9", "ID6", "Title6", "Author5", "Cast3", "Genre4"}};
+            {"4", "1", "Title1"},
+            {"5", "2", "Title2", "Author1"},
+            {"6", "3", "Title3", "Author2"},
+            {"7", "4", "Title4", "Author3", "Cast1", "Genre1"},
+            {"8", "5", "Title5", "Author4", "Cast2", "Genre2"},
+            {"9", "6", "Title6", "Author5", "Cast3", "Genre4"}};
 
     public TitleRecord[] titleRecords = {
-           new TitleRecord("ID1", "Title1"),
-           new TitleRecord("ID2", "Title2", "Author1"),
-           new TitleRecord("ID3", "Title3", "Author2"),
-            new TitleRecord("ID4", "Title4", "Author3", "Cast1", "Genre1"),
-            new TitleRecord("ID5", "Title5", "Author4", "Cast2", "Genre2"),
-            new TitleRecord("ID6", "Title6", "Author5", "Cast3", "Genre4")
+           new TitleRecord(1L, "Title1"),
+           new TitleRecord(2L, "Title2", "Author1"),
+           new TitleRecord(3L, "Title3", "Author2"),
+            new TitleRecord(4L, "Title4", "Author3", "Cast1", "Genre1"),
+            new TitleRecord(5L, "Title5", "Author4", "Cast2", "Genre2"),
+            new TitleRecord(6L, "Title6", "Author5", "Cast3", "Genre4")
 
 
     };
@@ -45,8 +45,8 @@ public class Data {
     };
 
     public Record[] records = {
-            new Record(1),
-            new Record(2)};
+            new Record(1L),
+            new Record(2L)};
 
 
     public String[][] clientData = {
@@ -60,12 +60,12 @@ public class Data {
 
 
     public Client[] clients = {
-            new Client("2557835671236456", "Ania", 1, "Tom"),
-            new Client("2978365671236456", "Kamil", 2, "Iop"),
-            new Client("2557835671233310", "Filip", 3, "Spd"),
-            new Client("2557800027636456", "Jakub", 4, "BiomM"),
-            new Client("2557801926554456", "Dawid", 5, "Redagowanie"),
-            new Client("2557835671236456", "Ania2", 6, "Mikro")
+            new Client("2557835671236456", "Ania", 1L, "Tom"),
+            new Client("2978365671236456", "Kamil", 2L, "Iop"),
+            new Client("2557835671233310", "Filip", 3L, "Spd"),
+            new Client("2557800027636456", "Jakub", 4L, "BiomM"),
+            new Client("2557801926554456", "Dawid", 5L, "Redagowanie"),
+            new Client("2557835671236456", "Ania2", 6L, "Mikro")
 
     };
 
