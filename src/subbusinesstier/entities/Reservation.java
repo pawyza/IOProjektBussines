@@ -68,11 +68,9 @@ public class Reservation implements Serializable {
 
     public Reservation(long id) {
 
-        this.id = id;
+        this.number = id;
         this.dateStart = LocalDate.now();
         this.dateEnd = LocalDate.now().plusDays(1L);
-
-        this.number = id;
 
     }
 
