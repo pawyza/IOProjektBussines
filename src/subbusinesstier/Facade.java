@@ -239,7 +239,7 @@ public class Facade {
     public List<String[]> getClientStrings() {
         ArrayList<String[]> h = new ArrayList<>();
         for (Client client : clients) {
-            h.add(new String[]{client.getNumberCard(), client.getLogin(), client.getId().toString(), client.getPassword()});
+            h.add(new String[]{client.getNumberCard(), client.getLogin(), client.getNumber().toString(), client.getPassword()});
         }
         return h;
     }
@@ -247,7 +247,7 @@ public class Facade {
     public List<String[]> getTitleRecordStrings() {
         ArrayList<String[]> h = new ArrayList<>();
         for (TitleRecord titleRecord : titleRecords) {
-            h.add(new String[]{titleRecord.getId().toString(), titleRecord.getTitle(), titleRecord.getAuthor(), titleRecord.getCast(), titleRecord.getGenre()});
+            h.add(new String[]{titleRecord.getNumber().toString(), titleRecord.getTitle(), titleRecord.getAuthor(), titleRecord.getCast(), titleRecord.getGenre()});
         }
         return h;
     }
@@ -288,7 +288,7 @@ public class Facade {
     public Long deleteClient(int number) {
         Client client = searchClient(number);
         if (client != null) {
-            Long idDel = client.getId();
+            Long idDel = client.getNumber();
             clients.remove(client);
             return idDel;
         }
@@ -298,7 +298,7 @@ public class Facade {
     public Long deleteTitleRecord(int id) {
         TitleRecord titleRecord = searchTitleRecord(id);
         if (titleRecord != null) {
-            Long idDel = titleRecord.getId();
+            Long idDel = titleRecord.getNumber();
             titleRecords.remove(titleRecord);
             return idDel;
         }
@@ -401,7 +401,7 @@ public class Facade {
 
     public String[] transformTittleRecordToString(int index) {
         TitleRecord titleRecord = (TitleRecord) getTitleRecords().toArray()[index];
-        String id = titleRecord.getId().toString();
+        String id = titleRecord.getNumber().toString();
         String author = titleRecord.getAuthor();
         String cast = titleRecord.getCast();
         String genre = titleRecord.getGenre();
@@ -442,7 +442,7 @@ public class Facade {
 
     public TitleRecord searchTitleRecord(int id) {
         for (TitleRecord titleRecord : titleRecords) {
-            if (titleRecord.getId().equals(new Long(id))) {
+            if (titleRecord.getNumber().equals(new Long(id))) {
                 return titleRecord;
             }
         }
@@ -492,7 +492,7 @@ public class Facade {
 
     public Client searchClient(int id) {
         for (Client client : clients) {
-            if (client.getId().equals(new Long(id))) {
+            if (client.getNumber().equals(new Long(id))) {
                 return client;
             }
         }
@@ -595,11 +595,11 @@ public class Facade {
     }
 
     public int transformClientIndexToNumber(int index) {
-        return getClients().get(index).getId().intValue();
+        return getClients().get(index).getNumber().intValue();
     }
 
     public int transformTitleRecordIndexToString(int index) {
-        return getTitleRecords().get(index).getId().intValue();
+        return getTitleRecords().get(index).getNumber().intValue();
     }
 
     public int transformReservationIndexToNumber(int index) {

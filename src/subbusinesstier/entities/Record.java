@@ -20,22 +20,24 @@ import javax.persistence.Transient;
 @Entity
 public class Record {
 
-    private int number;
+    private static final long serialVersionUID = 1L;
+    private Long number;
 
-    public Record(int number) {
-        this.number = number;
-        this.titleRecord = new TitleRecord();
+    public Long getNumber() {
+        return number;
+
     }
 
-    private static final long serialVersionUID = 1L;
-
+    public void setNumber(Long id) {
+        this.number = id;
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     public Long getId() {
         return id;
-
     }
 
     public void setId(Long id) {
@@ -49,7 +51,7 @@ public class Record {
     private List<Reservation> reservations = new ArrayList<>();
 
     public Record(long id) {
-        this.id = id;
+        this.number = id;
     }
 
     public TitleRecord getTitleRecord() {
@@ -83,18 +85,18 @@ public class Record {
 
         Record record = (Record) o;
 
-        return id.equals(record.getId());
+        return number.equals(record.getNumber());
     }
 
     @Override
     public int hashCode() {
-        return id.intValue();
+        return number.intValue();
     }
 
     @Override
     public String toString() {
         String help = titleRecord.toString();
-        help += " Id: " + getId().toString();
+        help += " Number: " + getNumber().toString();
         return help;
     }
 
@@ -123,7 +125,7 @@ public class Record {
 
     public String[] _toString_() {
         String help[] = new String[4];
-        help[0] = String.valueOf(getId());
+        help[0] = String.valueOf(getNumber());
         help[1] = getTitleRecord().toString();
         return help;
 

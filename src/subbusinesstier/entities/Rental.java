@@ -22,6 +22,15 @@ public class Rental {
 
     private static final long serialVersionUID = 1L;
     private float cost;
+    private Long number;
+
+    public Long getNumber() {
+        return number;
+    }
+
+    public void setNumber(Long number) {
+        this.number = number;
+    }
 
     public Rental(Reservation reservation, float cost) {
         this.reservation = reservation;
@@ -42,6 +51,7 @@ public class Rental {
     public void setId(Long id) {
         this.id = id;
     }
+    
 
     public Rental() {
     }
@@ -68,7 +78,7 @@ public class Rental {
 
     @Override
     public int hashCode() {
-        return Integer.valueOf(getReservation().getId().intValue() + String.valueOf(getCost()));
+        return Integer.valueOf(getReservation().getNumber().intValue() + String.valueOf(getCost()));
     }
 
     /**
@@ -78,7 +88,7 @@ public class Rental {
     @Override
     public boolean equals(Object o) {
         boolean result = false;
-        if (getReservation().getId().equals(((Rental) o).getReservation().getId())) {
+        if (getReservation().getNumber().equals(((Rental) o).getReservation().getNumber())) {
             if (getCost() == (((Rental) o).getCost())) {
                 result = true;
             }

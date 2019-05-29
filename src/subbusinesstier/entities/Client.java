@@ -23,6 +23,7 @@ import javax.persistence.Transient;
 public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private Long number;
     private String numberCard;
     private String login;
     private String password;
@@ -37,6 +38,14 @@ public class Client implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public Long getNumber() {
+        return number;
+    }
+
+    public void setNumber(Long number) {
+        this.number = number;
     }
     //@Transient
     @OneToMany(mappedBy = "client", cascade = ALL)
@@ -81,7 +90,7 @@ public class Client implements Serializable {
         this.numberCard = numberCard;
         this.login = login;
         //this.number = number;
-        this.id = number;
+        this.number = number;
         this.password = password;
     }
 
@@ -131,7 +140,7 @@ public class Client implements Serializable {
         Client client = (Client) o;
 
         //return number == client.getNumber();
-        return getId().equals(client.getId());
+        return getNumber().equals(client.getNumber());
     }
 
     public Reservation searchReservation(Reservation reservation) {
@@ -144,7 +153,7 @@ public class Client implements Serializable {
 
     public Reservation searchReservation(Long number) {
         for (Reservation reservation : reservations) {
-            if (getId().equals(number)) {
+            if (getNumber().equals(number)) {
                 return reservation;
             }
         }
@@ -154,41 +163,35 @@ public class Client implements Serializable {
     public Long deleteReservation(int number) {
         Reservation reservation = searchReservation(new Long(number));
         if (reservation != null) {
-            Long idDel = reservation.getId();
+            Long numberDel = reservation.getNumber();
             reservations.remove(reservation);
-            return idDel;
+            return numberDel;
         }
         return null;
     }
 
     public Long getReservationNumber(Object object) {
         Reservation reservation = (Reservation) object;
-        return reservation.getId();
+        return reservation.getNumber();
     }
-
-    /*
-    @Override
-    public int hashCode() {
-        return number;
-    }
-     */
+    
     public List<String[]> getReservationStrings() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         ArrayList<String[]> h = new ArrayList<>();
         for (Reservation reservation : getReservations()) {
-            h.add(new String[]{reservation.getId().toString(), reservation.getDateStart().format(formatter), reservation.getDateEnd().format(formatter)});
+            h.add(new String[]{reservation.getNumber().toString(), reservation.getDateStart().format(formatter), reservation.getDateEnd().format(formatter)});
         }
         return h;
     }
 
     @Override
     public int hashCode() {
-        return id.intValue();
+        return number.intValue();
     }
 
     @Override
     public String toString() {
-        String client = "Login: " + login + " Id: " + id.toString() + " NumberCard: " + numberCard + " Password: " + password + "\n";
+        String client = "Login: " + login + " Number: " + number.toString() + " NumberCard: " + numberCard + " Password: " + password + "\n";
         for (Reservation reservation : reservations) {
             client += reservation.toString();
         }
@@ -197,7 +200,7 @@ public class Client implements Serializable {
 
     public String[] toString_() {
         String help[] = new String[4];
-        help[2] = getId().toString();
+        help[2] = getNumber().toString();
         help[1] = getLogin();
         help[3] = getPassword();
         help[0] = getNumberCard();
