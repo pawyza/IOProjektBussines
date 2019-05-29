@@ -1,24 +1,54 @@
-    package subbusinesstier.entities;
+package subbusinesstier.entities;
 
+import java.io.Serializable;
 import subbusinesstier.Factory;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import static javax.persistence.CascadeType.ALL;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
- * PU:
- * Publikuj, Wy�lij_komunikat, Wyszukaj_klienta, Logowanie, Rejestracja_klienta, Rezerwacja_nagrania,Zwrot_nagrania,Wyszukaj_rezerwacje
+ * PU: Publikuj, Wy�lij_komunikat, Wyszukaj_klienta, Logowanie,
+ * Rejestracja_klienta, Rezerwacja_nagrania,Zwrot_nagrania,Wyszukaj_rezerwacje
  */
-public class Client {
+@Entity
+public class Client implements Serializable {
 
-    private List<Reservation> reservations = new ArrayList<>();
+    private static final long serialVersionUID = 1L;
     private String numberCard;
     private String login;
-    private int number = 0;
     private String password;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    //@Transient
+    @OneToMany(mappedBy = "client", cascade = ALL)
+    private List<Reservation> reservations = new ArrayList<>();
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
 
     public String getPassword() {
         return password;
@@ -44,32 +74,17 @@ public class Client {
         this.login = login;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
     public Client() {
     }
 
-    public Client(String numberCard, String login, int number, String password) {
+    public Client(String numberCard, String login, Long number, String password) {
         this.numberCard = numberCard;
         this.login = login;
-        this.number = number;
+        //this.number = number;
+        this.id = number;
         this.password = password;
     }
 
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
-    }
-    
     /**
      * @param record
      * @param date
@@ -91,69 +106,98 @@ public class Client {
         if (reservation != null) {
             reservation.addRental(reservation, dayCost);
             return "rented";
-        } else return "no such reservation";
+        } else {
+            return "no such reservation";
+        }
     }
-    
-      public ArrayList<Object[]> getReservationModel() {
+
+    public ArrayList<Object[]> getReservationModel() {
         ArrayList<Object[]> reservationsModel = new ArrayList<>();
         for (Reservation reservation : reservations) {
-                reservationsModel.add(reservation.toString_());
-            }
+            reservationsModel.add(reservation.toString_());
+        }
         return reservationsModel;
     }
-      
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Client client = (Client) o;
 
-        return number == client.getNumber();
+        //return number == client.getNumber();
+        return getId().equals(client.getId());
     }
-    
-    public Reservation searchReservation(Reservation reservation){
+
+    public Reservation searchReservation(Reservation reservation) {
         int index;
         if ((index = reservations.indexOf(reservation)) != -1) {
             return (Reservation) reservations.get(index);
         }
         return null;
     }
-    
-    public Reservation searchReservation(int number){
-        for (Reservation reservation:reservations){
-            if (reservation.getNumber()==number) return reservation;
+
+    public Reservation searchReservation(Long number) {
+        for (Reservation reservation : reservations) {
+            if (getId().equals(number)) {
+                return reservation;
+            }
         }
         return null;
     }
-    
-    public void deleteReservation(int number){
-        Reservation reservation = searchReservation(number);
-        reservations.remove(reservation);
-    }
-      
-      public int getReservationNumber(Object object){
-          Reservation reservation = (Reservation) object;
-          return reservation.getNumber();
-      }
 
+    public Long deleteReservation(int number) {
+        Reservation reservation = searchReservation(new Long(number));
+        if (reservation != null) {
+            Long idDel = reservation.getId();
+            reservations.remove(reservation);
+            return idDel;
+        }
+        return null;
+    }
+
+    public Long getReservationNumber(Object object) {
+        Reservation reservation = (Reservation) object;
+        return reservation.getId();
+    }
+
+    /*
     @Override
     public int hashCode() {
         return number;
     }
+     */
+    public List<String[]> getReservationStrings() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        ArrayList<String[]> h = new ArrayList<>();
+        for (Reservation reservation : getReservations()) {
+            h.add(new String[]{reservation.getId().toString(), reservation.getDateStart().format(formatter), reservation.getDateEnd().format(formatter)});
+        }
+        return h;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.intValue();
+    }
 
     @Override
     public String toString() {
-        String client = "Login: " + login + " Number: " + number + " NumberCard: " + numberCard + " Password: " + password + "\n";
-        for(Reservation reservation : reservations){
+        String client = "Login: " + login + " Id: " + id.toString() + " NumberCard: " + numberCard + " Password: " + password + "\n";
+        for (Reservation reservation : reservations) {
             client += reservation.toString();
         }
         return client + "\n";
     }
-    
-        public String[] toString_() {
+
+    public String[] toString_() {
         String help[] = new String[4];
-        help[2] = String.valueOf(getNumber());
+        help[2] = getId().toString();
         help[1] = getLogin();
         help[3] = getPassword();
         help[0] = getNumberCard();

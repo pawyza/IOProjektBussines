@@ -1,8 +1,21 @@
 package subbusinesstier.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import static javax.persistence.CascadeType.ALL;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import subbusinesstier.Factory;
 
@@ -11,31 +24,44 @@ import subbusinesstier.Factory;
  * Rezerwacja_nagrania,Zwrot_nagrania,Wyszukaj_rezerwacje, Usuwanie_rezerwacji,
  * Op�acenie_rezerwacji,Odebranie_nagrania
  */
-public class Reservation {
+@Entity
+public class Reservation implements Serializable {
 
-    private Record record;
-    private Client client;
-    private int number;
+    private static final long serialVersionUID = 1L;
     private LocalDate dateStart;
     private LocalDate dateEnd;
+
+    @ManyToOne
+    private Client client;
+    @ManyToOne
+    private Record record;
+
+    //@Transient
     private Rental rental;
 
-    public Reservation(int number, LocalDate dateStart, LocalDate dateEnd) {
-        this.number = number;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Reservation(Long id, LocalDate dateStart, LocalDate dateEnd) {
+        this.id = id;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
 
-    public Reservation(int number) {
-        this.number = number;
-        this.dateStart = LocalDate.now();
-        this.dateEnd = LocalDate.now().plusDays(1);
+    public Reservation(long id) {
+        this.id = id;
     }
 
     public Reservation() {
-        this.number = 1;
-        this.dateStart = LocalDate.now();
-        this.dateEnd = LocalDate.now().plusDays(1);
     }
 
     public Record getRecord() {
@@ -52,14 +78,6 @@ public class Reservation {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public int getNumber() {
-        return this.number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     public LocalDate getDateStart() {
@@ -97,17 +115,14 @@ public class Reservation {
 
     @Override
     public int hashCode() {
-        return number;
+        return id.intValue();
     }
 
-    /**
-     *
-     * @param o
-     */
     @Override
     public boolean equals(Object o) {
         boolean result = false;
-        if (getNumber() == ((Reservation) o).getNumber()) {
+
+        if (getId().equals(((Reservation) o).getId())) {
             result = true;
         }
         return result;
@@ -129,14 +144,14 @@ public class Reservation {
     @Override
     public String toString() {
         if (!(null == getDateStart())) {
-            return " Number: " + getNumber() + " Start date: " + getDateStart().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " End date: " + getDateEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " Number: " + getNumber();
+            return "Id: " + getId().toString() + " Start date: " + getDateStart().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " End date: " + getDateEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         }
-        return "Number: " + getNumber();
+        return "Id: " + getId().toString();
     }
 
     public String[] toString_() {
         String help[] = new String[4];
-        help[0] = String.valueOf(getNumber());
+        help[0] = getId().toString();
         help[1] = getClient().toString();
         help[2] = getRecord().toString();
         help[3] = getDateStart().toString();
@@ -144,4 +159,5 @@ public class Reservation {
         help[5] = getRental().toString();
         return help;
     }
+
 }
