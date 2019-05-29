@@ -176,7 +176,7 @@ public class Facade {
         System.out.println(Arrays.toString(ap.getReservationStrings().get(0)));
         System.out.println(Arrays.toString(ap.getClientStrings().get(0)));
         System.out.println(Arrays.toString(ap.getTitleRecordStrings().get(0)));
-        System.out.println(Arrays.toString(ap.getRecordStrings().get(0)));
+        System.out.println(Arrays.toString(ap.getReservationStrings().get(0)));
     }
 
     public List<TitleRecord> getTitleRecords() {

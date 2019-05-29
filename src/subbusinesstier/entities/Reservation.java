@@ -163,12 +163,15 @@ public class Reservation implements Serializable {
     }
 
     public String[] toString_() {
-        String help[] = new String[4];
+        String help[] = new String[6];
         help[0] = getNumber().toString();
         help[1] = getClient().toString();
         help[2] = getRecord().toString();
         help[3] = getDateStart().toString();
         help[4] = getDateEnd().toString();
+        if (rental == null)
+        help[5] = "Not rented";
+            else
         help[5] = getRental().toString();
         return help;
     }

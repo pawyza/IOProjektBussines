@@ -179,7 +179,7 @@ public class Client implements Serializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         ArrayList<String[]> h = new ArrayList<>();
         for (Reservation reservation : getReservations()) {
-            h.add(new String[]{reservation.getNumber().toString(), reservation.getDateStart().format(formatter), reservation.getDateEnd().format(formatter)});
+            h.add(reservation.toString_());
         }
         return h;
     }
