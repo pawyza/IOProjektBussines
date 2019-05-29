@@ -10,12 +10,12 @@ package testdata;
 public class Data1 {
 
     public String[] clientData = {
-        "Login: Ania Id: 1 NumberCard: 2557835671236456 Password: Tom" + "\n\n",
-        "Login: Kamil Id: 2 NumberCard: 2978365671236456 Password: Iop" + "\n\n",
-        "Login: Filip Id: 3 NumberCard: 2557835671233310 Password: Spd" + "\n\n",
-        "Login: Jakub Id: 4 NumberCard: 2557800027636456 Password: BiomM" + "\n\n",
-        "Login: Dawid Id: 5 NumberCard: 2557801926554456 Password: Redagowanie" + "\n\n",
-        "Login: Ania2 Id: 6 NumberCard: 2557835671236456 Password: Mikro" + "\n\n"};
+        "Login: Ania Number: 1 NumberCard: 2557835671236456 Password: Tom" + "\n\n",
+        "Login: Kamil Number: 2 NumberCard: 2978365671236456 Password: Iop" + "\n\n",
+        "Login: Filip Number: 3 NumberCard: 2557835671233310 Password: Spd" + "\n\n",
+        "Login: Jakub Number: 4 NumberCard: 2557800027636456 Password: BiomM" + "\n\n",
+        "Login: Dawid Number: 5 NumberCard: 2557801926554456 Password: Redagowanie" + "\n\n",
+        "Login: Ania2 Number: 6 NumberCard: 2557835671236456 Password: Mikro" + "\n\n"};
     public String[] recordData = {
         "[1, \n"
         + "Title: Title1 Author: null Cast: null Genre: null, null, null]",
