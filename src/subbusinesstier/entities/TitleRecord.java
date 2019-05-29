@@ -27,6 +27,15 @@ public class TitleRecord implements Serializable {
     private String author;
     private String genre;
     private String recCast;
+    private Long number;
+
+    public Long getNumber() {
+        return number;
+    }
+
+    public void setNumber(Long id) {
+        this.number = id;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,7 +48,6 @@ public class TitleRecord implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     @OneToMany(mappedBy = "titleRecord", cascade = ALL)
     private List<Record> records;
 
@@ -54,27 +62,27 @@ public class TitleRecord implements Serializable {
     public TitleRecord(Long id, String title, String author, String cast, String genre) {
         this.title = title;
         this.author = author;
-        this.id = id;
+        this.number = id;
         this.genre = genre;
         this.recCast = cast;
     }
 
     public TitleRecord(Long id, String title) {
         this.title = title;
-        this.id = id;
+        this.number = id;
         records = new ArrayList();
     }
 
     public TitleRecord(Long id, String title, String author) {
         this.title = title;
-        this.id = id;
+        this.number = id;
         this.author = author;
         records = new ArrayList();
     }
 
     public TitleRecord(Long id, String title, String author, String cast) {
         this.title = title;
-        this.id = id;
+        this.number = id;
         this.author = author;
         this.recCast = cast;
         records = new ArrayList();
@@ -147,7 +155,7 @@ public class TitleRecord implements Serializable {
     public Record searchRecord(Long number) {
 
         for (Record record : records) {
-            if (record.getId().equals(number)) {
+            if (record.getNumber().equals(number)) {
                 return record;
             }
         }
@@ -157,7 +165,7 @@ public class TitleRecord implements Serializable {
     public Long deleteRecord(int number) {
         Record record = searchRecord(new Long(number));
         if (record != null) {
-            Long idDel = record.getId();
+            Long idDel = record.getNumber();
             records.remove(record);
             return idDel;
         }
@@ -206,7 +214,7 @@ public class TitleRecord implements Serializable {
     public List<String[]> getRecordStrings() {
         ArrayList<String[]> h = new ArrayList<>();
         for (Record record : getRecords()) {
-            h.add(new String[]{record.getId().toString(), record.getTitleRecord().getTitle()});
+            h.add(new String[]{record.getNumber().toString(), record.getTitleRecord().getTitle()});
         }
         return h;
     }
@@ -222,7 +230,7 @@ public class TitleRecord implements Serializable {
 
     public String[] toString_() {
         String help[] = new String[5];
-        help[0] = getId().toString();
+        help[0] = getNumber().toString();
         help[1] = getTitle();
         help[2] = getAuthor();
         help[3] = getCast();
@@ -234,7 +242,7 @@ public class TitleRecord implements Serializable {
     @Override
     public boolean equals(Object o) {
         boolean result = false;
-        if (getId().equals(((TitleRecord) o).getId())) {
+        if (getNumber().equals(((TitleRecord) o).getNumber())) {
             result = true;
         }
         return result;
@@ -250,11 +258,11 @@ public class TitleRecord implements Serializable {
 
     public int getRecordNumber(Object object) {
         Record record = (Record) object;
-        return record.getId().intValue();
+        return record.getNumber().intValue();
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return number != null ? number.hashCode() : 0;
     }
 }

@@ -30,6 +30,15 @@ public class Reservation implements Serializable {
     private static final long serialVersionUID = 1L;
     private LocalDate dateStart;
     private LocalDate dateEnd;
+    private Long number;
+
+    public Long getNumber() {
+        return number;
+    }
+
+    public void setNumber(Long id) {
+        this.number = id;
+    }
 
     @ManyToOne
     private Client client;
@@ -50,15 +59,21 @@ public class Reservation implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
+    
     public Reservation(Long id, LocalDate dateStart, LocalDate dateEnd) {
-        this.id = id;
+        this.number = id;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
 
     public Reservation(long id) {
+
         this.id = id;
+        this.dateStart = LocalDate.now();
+        this.dateEnd = LocalDate.now().plusDays(1L);
+
+        this.number = id;
+
     }
 
     public Reservation() {
@@ -115,14 +130,14 @@ public class Reservation implements Serializable {
 
     @Override
     public int hashCode() {
-        return id.intValue();
+        return number.intValue();
     }
 
     @Override
     public boolean equals(Object o) {
         boolean result = false;
 
-        if (getId().equals(((Reservation) o).getId())) {
+        if (getNumber().equals(((Reservation) o).getNumber())) {
             result = true;
         }
         return result;
@@ -144,14 +159,14 @@ public class Reservation implements Serializable {
     @Override
     public String toString() {
         if (!(null == getDateStart())) {
-            return "Id: " + getId().toString() + " Start date: " + getDateStart().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " End date: " + getDateEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            return "Id: " + getNumber().toString() + " Start date: " + getDateStart().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " End date: " + getDateEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         }
-        return "Id: " + getId().toString();
+        return "Id: " + getNumber().toString();
     }
 
     public String[] toString_() {
         String help[] = new String[4];
-        help[0] = getId().toString();
+        help[0] = getNumber().toString();
         help[1] = getClient().toString();
         help[2] = getRecord().toString();
         help[3] = getDateStart().toString();
